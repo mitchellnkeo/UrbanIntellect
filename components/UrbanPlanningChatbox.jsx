@@ -44,7 +44,7 @@ const UrbanPlanningChatbot = ({
       const response = await axios.get(`${API_BASE_URL}/health`, { timeout: 5000 });
       setIsConnected(response.data.status === 'healthy');
     } catch (error) {
-      console.error('AI connection error:', error);
+      console.log('AI service not available:', error.message);
       setIsConnected(false);
     }
   };
@@ -147,14 +147,29 @@ const UrbanPlanningChatbot = ({
         {messages.length === 0 && (
           <div className="welcome-message">
             <h4>Welcome to Urban Planning AI! 🎯</h4>
-            <p>I can help you with:</p>
-            <ul>
-              <li>Development recommendations</li>
-              <li>Population density analysis</li>
-              <li>Location insights</li>
-              <li>Neighborhood comparisons</li>
-            </ul>
-            <p>Try asking: "Where should I develop 200 houses?"</p>
+            {!isConnected ? (
+              <div>
+                <p>⚠️ AI service is not currently running</p>
+                <p>To use the AI features, you need to start the AI service:</p>
+                <ul>
+                  <li>Navigate to the AI service directory</li>
+                  <li>Run: <code>python3 api.py</code></li>
+                  <li>The service will be available at http://localhost:8000</li>
+                </ul>
+                <p>Once the service is running, click the 🔄 button to retry connection.</p>
+              </div>
+            ) : (
+              <div>
+                <p>I can help you with:</p>
+                <ul>
+                  <li>Development recommendations</li>
+                  <li>Population density analysis</li>
+                  <li>Location insights</li>
+                  <li>Neighborhood comparisons</li>
+                </ul>
+                <p>Try asking: "Where should I develop 200 houses?"</p>
+              </div>
+            )}
           </div>
         )}
         
