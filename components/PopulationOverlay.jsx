@@ -19,7 +19,7 @@ const Popover = dynamic(
 export const PopulationOverlay = () => {
   return populationDensityData.data.map((d) => {
     const radius = d.size / 500;
-    const fillColor = radius > 8 ? "red" : radius > 5 ? "orange" : "yellow";
+    const fillColor = radius > 8 ? "red" : radius > 5 ? "orange" : "red";
 
     return (
       <CircleMarker
