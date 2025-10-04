@@ -5,7 +5,6 @@ import { useState } from "react";
 
 export default function Home() {
   const [focusedPointOfInterest, setFocusedPointOfInterest] = useState(null);
-  console.log(focusedPointOfInterest);
   const [pointsOfInterest, setPointsOfInterest] = useState([
     {
       id: "1",

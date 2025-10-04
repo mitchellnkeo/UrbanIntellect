@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { PointOfInterestMarker } from "./PointOfInterestMarker";
+import { PopulationOverlay } from "./PopulationOverlay";
 
 // Dynamically import all react-leaflet components
 const MapContainer = dynamic(
@@ -18,13 +19,6 @@ const Marker = dynamic(
 const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), {
   ssr: false,
 });
-
-const fillBlueOptions = { fillColor: "blue" };
-const blackOptions = { color: "black" };
-const limeOptions = { color: "lime" };
-const purpleOptions = { color: "purple" };
-const redOptions = { color: "red" };
-const blueOptions = { color: "blue" };
 
 export default function MapC({ pointsOfInterest, setFocusedPointOfInterest }) {
   const [L, setLeaflet] = useState(null);
@@ -71,6 +65,7 @@ export default function MapC({ pointsOfInterest, setFocusedPointOfInterest }) {
             setFocusedPointOfInterest={setFocusedPointOfInterest}
           />
         ))}
+        <PopulationOverlay />
       </MapContainer>
     </div>
   );
