@@ -16,6 +16,10 @@ const UrbanPlanningChatbot = ({
   const [isConnected, setIsConnected] = useState(false);
 
   const API_BASE_URL = apiUrl || process.env.REACT_APP_AI_API_URL || 'http://localhost:8000';
+  
+  // Check if we're in production and AI service is not available
+  const isProduction = process.env.NODE_ENV === 'production';
+  const isLocalhost = API_BASE_URL.includes('localhost');
 
   // Check AI service connection
   useEffect(() => {
@@ -82,10 +86,26 @@ const UrbanPlanningChatbot = ({
       setMessages(prev => [...prev, aiMessage]);
     } catch (error) {
       console.error('Chat error:', error);
+      let errorText = 'Sorry, I encountered an error. Please try again.';
+      
+      if (error.response) {
+        // Server responded with error status
+        if (error.response.status === 503) {
+          errorText = 'AI service is temporarily unavailable (503). Please check if the AI service is running properly.';
+        } else if (error.response.status === 500) {
+          errorText = 'AI service internal error (500). Please try again later.';
+        } else {
+          errorText = `Server error (${error.response.status}). Please try again.`;
+        }
+      } else if (error.request) {
+        // Network error
+        errorText = 'Cannot connect to AI service. Please check if it\'s running on localhost:8000';
+      }
+      
       const errorMessage = {
         id: Date.now() + 1,
         type: 'error',
-        text: 'Sorry, I encountered an error. Please try again.',
+        text: errorText,
         timestamp: new Date().toISOString()
       };
       setMessages(prev => [...prev, errorMessage]);
@@ -93,6 +113,7 @@ const UrbanPlanningChatbot = ({
       setIsLoading(false);
     }
   };
+
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -149,17 +170,34 @@ const UrbanPlanningChatbot = ({
             <h4>Welcome to Urban Planning AI! 🎯</h4>
             {!isConnected ? (
               <div>
-                <p>⚠️ AI service is not currently running</p>
-                <p>To use the AI features, you need to start the AI service:</p>
-                <ul>
-                  <li>Navigate to the AI service directory</li>
-                  <li>Run: <code>python3 api.py</code></li>
-                  <li>The service will be available at http://localhost:8000</li>
-                </ul>
-                <p>Once the service is running, click the 🔄 button to retry connection.</p>
+                {isProduction && isLocalhost ? (
+                  <div>
+                    <p>⚠️ AI service configuration issue</p>
+                    <p>This deployed app is trying to connect to localhost, which won't work in production.</p>
+                    <p>To fix this:</p>
+                    <ul>
+                      <li>Deploy your AI service to Railway/Heroku</li>
+                      <li>Update Vercel environment variables</li>
+                      <li>Set REACT_APP_AI_API_URL to your deployed AI service URL</li>
+                    </ul>
+                    <p>For now, run the app locally with <code>npm run dev</code> to test the AI features.</p>
+                  </div>
+                ) : (
+                  <div>
+                    <p>⚠️ AI service is not currently running</p>
+                    <p>To use the AI features, you need to start the AI service:</p>
+                    <ul>
+                      <li>Navigate to the AI service directory</li>
+                      <li>Run: <code>python3 api.py</code></li>
+                      <li>The service will be available at http://localhost:8000</li>
+                    </ul>
+                    <p>Once the service is running, click the 🔄 button to retry connection.</p>
+                  </div>
+                )}
               </div>
             ) : (
               <div>
+                <p>✅ Connected to AI service at {API_BASE_URL}</p>
                 <p>I can help you with:</p>
                 <ul>
                   <li>Development recommendations</li>
