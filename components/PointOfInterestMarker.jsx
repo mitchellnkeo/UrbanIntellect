@@ -23,18 +23,18 @@ export const PointOfInterestMarker = ({
   return (
     <CircleMarker
       center={center}
-      pathOptions={{ color: "blue" }}
+      pathOptions={{ color: "red" }}
       radius={radius}
       eventHandlers={{
         click: () => {
-          setFocusedPointOfInterest(id);
+          setFocusedPointOfInterest(center);
         },
       }}
     >
-      <Popup>
+      {/* <Popup>
         <b>{title}</b>
         <br /> {description}
-      </Popup>
+      </Popup> */}
     </CircleMarker>
   );
 };
