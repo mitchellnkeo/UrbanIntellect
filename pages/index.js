@@ -11,7 +11,7 @@ import Checkbox from '@mui/material/Checkbox';
 export default function Home() {
   const [focusedPointOfInterest, setFocusedPointOfInterest] = useState(null); //Now tracking focused poi by Center to push to map
   const [focusobj, setFocusObj] = useState(null)
-  const [activeTab, setActiveTab] = useState("filters"); // New state for tab management
+  const [activeTab, setActiveTab] = useState("none"); // New state for tab management
   const [filters, setFilters] = useState([0]);
   const [draweropen, setDrawer] = useState(false);
   const [pointsOfInterest, setPointsOfInterest] = useState([
@@ -71,7 +71,7 @@ export default function Home() {
             pointsOfInterest={pointsOfInterest}
             filters={filters}
             focusedPointOfInterest={focusedPointOfInterest}
-            setFocusedPointOfInterest={setFocusedPointOfInterest}
+            setFocus={setFocus}
           />
         </div>
         <div className={styles.focuscontainer}>

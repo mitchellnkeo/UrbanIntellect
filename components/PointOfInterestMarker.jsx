@@ -17,7 +17,7 @@ export const PointOfInterestMarker = ({
   id,
   title,
   description,
-  setFocusedPointOfInterest,
+  setFocus,
 }) => {
   return (
     <CircleMarker
@@ -26,7 +26,7 @@ export const PointOfInterestMarker = ({
       radius={30}
       eventHandlers={{
         click: () => {
-          setFocusedPointOfInterest(center);
+          setFocus(id);
         },
       }}
     >
