@@ -94,6 +94,7 @@ const UrbanPlanningChatbot = ({
     }
   };
 
+
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
@@ -160,6 +161,7 @@ const UrbanPlanningChatbot = ({
               </div>
             ) : (
               <div>
+                <p>✅ Connected to AI service at {API_BASE_URL}</p>
                 <p>I can help you with:</p>
                 <ul>
                   <li>Development recommendations</li>
