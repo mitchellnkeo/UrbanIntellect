@@ -27,7 +27,7 @@ const FlyToFocusedPoint = dynamic(
   { ssr: false }
 );
 
-export default function MapC({ pointsOfInterest, focusedPointOfInterest, setFocusedPointOfInterest }) {
+export default function MapC({ pointsOfInterest, filters, focusedPointOfInterest, setFocusedPointOfInterest }) {
   const [L, setLeaflet] = useState(null);
   const [icon, setIcon] = useState(null);
 
@@ -69,7 +69,7 @@ export default function MapC({ pointsOfInterest, focusedPointOfInterest, setFocu
             setFocusedPointOfInterest={setFocusedPointOfInterest}
           />
         ))}
-        <PopulationOverlay />
+        {filters[0] &&<PopulationOverlay />}
       </MapContainer>
     </div>
   );

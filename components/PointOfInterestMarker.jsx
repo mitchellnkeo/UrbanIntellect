@@ -22,7 +22,7 @@ export const PointOfInterestMarker = ({
   return (
     <CircleMarker
       center={center}
-      pathOptions={{ color: "red" }}
+      pathOptions={{ color: "blue" }}
       radius={30}
       eventHandlers={{
         click: () => {
