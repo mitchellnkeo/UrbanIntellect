@@ -4,6 +4,7 @@ import { PointOfInterestMarker } from "./PointOfInterestMarker";
 import { PopulationOverlay } from "./PopulationOverlay";
 
 // Dynamically import all react-leaflet components
+const AutoPopup = dynamic(() => import("./AutoPopup"), { ssr: false });
 const MapContainer = dynamic(
   () => import("react-leaflet").then((mod) => mod.MapContainer),
   { ssr: false }
@@ -20,7 +21,13 @@ const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), {
   ssr: false,
 });
 
-export default function MapC({ pointsOfInterest, setFocusedPointOfInterest }) {
+// Small helper that moves the map when focusedPointOfInterest changes. Again we have to import dynamically to ensure it loads only in browser to avoid window not found errors.
+const FlyToFocusedPoint = dynamic(
+  () => import("./FlyToFocusedPoint"),
+  { ssr: false }
+);
+
+export default function MapC({ pointsOfInterest, focusedPointOfInterest, setFocusedPointOfInterest }) {
   const [L, setLeaflet] = useState(null);
   const [icon, setIcon] = useState(null);
 
@@ -53,14 +60,11 @@ export default function MapC({ pointsOfInterest, setFocusedPointOfInterest }) {
           attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={[47.6062, -122.3321]} icon={icon}>
-          <Popup>
-            <b>Seattle Center</b>
-            <br /> Example point of interest.
-          </Popup>
-        </Marker>
-        {pointsOfInterest.map((p) => (
+        <FlyToFocusedPoint focusedPointOfInterest={focusedPointOfInterest} />
+
+        {pointsOfInterest.map((p, keyId) => (
           <PointOfInterestMarker
+            key={keyId}
             {...p}
             setFocusedPointOfInterest={setFocusedPointOfInterest}
           />

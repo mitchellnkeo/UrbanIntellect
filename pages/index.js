@@ -42,6 +42,7 @@ export default function Home() {
         <div className={styles.mapcontainer}>
           <MapC
             pointsOfInterest={pointsOfInterest}
+            focusedPointOfInterest={focusedPointOfInterest}
             setFocusedPointOfInterest={setFocusedPointOfInterest}
           />
         </div>
@@ -73,9 +74,9 @@ export default function Home() {
                   <div
                     key={p.id}
                     className={`${styles.poiitem} ${
-                      p.id === focusedPointOfInterest ? styles.focusedPoiitem : ""
+                      p.center === focusedPointOfInterest ? styles.focusedPoiitem : ""
                     }`}
-                    onClick={() => setFocusedPointOfInterest(p.id)} // TODO when click this needs to open the popup of that poi
+                    onClick={() => setFocusedPointOfInterest(p.center)} 
                   >
                     <p>{p.title}</p>
                     <p>{p.description}</p>
