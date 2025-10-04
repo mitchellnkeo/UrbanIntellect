@@ -4,22 +4,27 @@ import MapC from "../components/map.js";
 import { useState } from "react";
 
 export default function Home() {
+  const [focusedPointOfInterest, setFocusedPointOfInterest] = useState(null);
+  console.log(focusedPointOfInterest);
   const [pointsOfInterest, setPointsOfInterest] = useState([
     {
+      id: "1",
       center: [47.6, -122.3321],
       radius: 15,
       title: "Point of Interest 1",
       description: "This is a point of interest",
     },
     {
+      id: "2",
       center: [47.637, -122.3134],
       radius: 30,
       title: "Point of Interest 2",
       description: "This is another point of interest",
     },
     {
-      center: [47.65, -122.37],
-      radius: 20,
+      id: "3",
+      center: [47.64, -122.37],
+      radius: 45,
       title: "Point of Interest 3",
       description: "This is another point of interest",
     },
@@ -34,7 +39,10 @@ export default function Home() {
 
       <main className={styles.main}>
         <div className={styles.mapcontainer}>
-          <MapC pointsOfInterest={pointsOfInterest} />
+          <MapC
+            pointsOfInterest={pointsOfInterest}
+            setFocusedPointOfInterest={setFocusedPointOfInterest}
+          />
         </div>
         <div className={styles.focuscontainer}>
           <div className={styles.focusheading}>
@@ -43,7 +51,12 @@ export default function Home() {
           </div>
           <div className={styles.focuscontent}>
             {pointsOfInterest.map((p) => (
-              <div className={styles.poiitem}>
+              <div
+                className={`${styles.poiitem} ${
+                  p.id === focusedPointOfInterest ? styles.focusedPoiitem : ""
+                }`}
+                onClick={() => setFocusedPointOfInterest(p.id)} // TODO when click this needs to open the popup of that poi
+              >
                 <p>{p.title}</p>
                 <p>{p.description}</p>
               </div>

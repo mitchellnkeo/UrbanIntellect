@@ -15,14 +15,21 @@ const CircleMarker = dynamic(
 export const PointOfInterestMarker = ({
   center,
   radius,
+  id,
   title,
   description,
+  setFocusedPointOfInterest,
 }) => {
   return (
     <CircleMarker
       center={center}
       pathOptions={{ color: "red" }}
       radius={radius}
+      eventHandlers={{
+        click: () => {
+          setFocusedPointOfInterest(id);
+        },
+      }}
     >
       <Popup>
         <b>{title}</b>

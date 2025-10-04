@@ -60,6 +60,10 @@
   background-color: #060808;
 }
 
+.focusedPoiitem {
+  border: 1px solid red;
+}
+
 .poiitem:hover {
   cursor: pointer;
 }

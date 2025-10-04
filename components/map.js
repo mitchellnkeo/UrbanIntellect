@@ -26,7 +26,7 @@ const purpleOptions = { color: "purple" };
 const redOptions = { color: "red" };
 const blueOptions = { color: "blue" };
 
-export default function MapC({ pointsOfInterest }) {
+export default function MapC({ pointsOfInterest, setFocusedPointOfInterest }) {
   const [L, setLeaflet] = useState(null);
   const [icon, setIcon] = useState(null);
 
@@ -66,38 +66,12 @@ export default function MapC({ pointsOfInterest }) {
           </Popup>
         </Marker>
         {pointsOfInterest.map((p) => (
-          <PointOfInterestMarker {...p} />
+          <PointOfInterestMarker
+            {...p}
+            setFocusedPointOfInterest={setFocusedPointOfInterest}
+          />
         ))}
       </MapContainer>
     </div>
   );
 }
-
-//  {/* <Rectangle
-//           bounds={[
-//             [47.6, -122.3321],
-//             [47.59, -122.321],
-//           ]}
-//           pathOptions={blueOptions}
-//         >
-//           <Popup>
-//             <b>Seattle Center</b>
-//             <br /> Example point of interest.
-//           </Popup>
-//         </Rectangle>
-//         <Rectangle
-//           bounds={[
-//             [47.63, -122.32],
-//             [47.637, -122.3134],
-//           ]}
-//           pathOptions={blueOptions}
-//         >
-//           <Popup>
-//             <b>Seattle Center</b>
-//             <br /> Example point of interest.
-//           </Popup>
-//         </Rectangle> */}
-//         {/* <PointOfInterestMarker
-//           bounds={}
-//           title={"Point of "}
-//         /> */}
