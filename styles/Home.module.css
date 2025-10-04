@@ -84,6 +84,15 @@
   color: #4CAF50;
 }
 
+.drawercontainer{
+  color: antiquewhite;
+  height: 100%;
+  padding: 5%;
+  background-color: #060808;
+  display: flex;
+  flex-direction: column;
+}
+
 .aiContent {
   height: calc(100% - 60px);
   width: 100%;

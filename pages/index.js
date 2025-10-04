@@ -3,10 +3,13 @@ import styles from "../styles/Home.module.css";
 import MapC from "../components/map.js";
 import UrbanPlanningChatbot from "../components/UrbanPlanningChatbox.jsx";
 import { useState } from "react";
+import Drawer from '@mui/material/Drawer';
 
 export default function Home() {
-  const [focusedPointOfInterest, setFocusedPointOfInterest] = useState(null);
+  const [focusedPointOfInterest, setFocusedPointOfInterest] = useState(null); //Now tracking focused poi by Center to push to map
+  const [focusobj, setFocusObj] = useState(null)
   const [activeTab, setActiveTab] = useState("filters"); // New state for tab management
+  const [draweropen, setDrawer] = useState(false);
   const [pointsOfInterest, setPointsOfInterest] = useState([
     {
       id: "1",
@@ -31,6 +34,13 @@ export default function Home() {
     },
   ]);
 
+  function setFocus(id){
+    let newfocus = pointsOfInterest.find(pointsOfInterest => pointsOfInterest.id === id);
+    setFocusedPointOfInterest(newfocus.center);
+    setFocusObj(newfocus);
+    setDrawer(true);
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -39,6 +49,12 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
+        {focusobj && <Drawer open={draweropen} onClose={() => {setDrawer(false)}}>
+          <div className={styles.drawercontainer}> 
+            <h1>{focusobj.title}</h1>
+            <p>{focusobj.description}</p>
+          </div>
+        </Drawer>}
         <div className={styles.mapcontainer}>
           <MapC
             pointsOfInterest={pointsOfInterest}
@@ -76,7 +92,7 @@ export default function Home() {
                     className={`${styles.poiitem} ${
                       p.center === focusedPointOfInterest ? styles.focusedPoiitem : ""
                     }`}
-                    onClick={() => setFocusedPointOfInterest(p.center)} 
+                    onClick={() => {setFocus(p.id)}} 
                   >
                     <p>{p.title}</p>
                     <p>{p.description}</p>
