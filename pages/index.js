@@ -14,21 +14,18 @@ export default function Home() {
     {
       id: "1",
       center: [47.6, -122.3321],
-      radius: 15,
       title: "Point of Interest 1",
       description: "This is a point of interest",
     },
     {
       id: "2",
       center: [47.637, -122.3134],
-      radius: 30,
       title: "Point of Interest 2",
       description: "This is another point of interest",
     },
     {
       id: "3",
       center: [47.64, -122.37],
-      radius: 45,
       title: "Point of Interest 3",
       description: "This is another point of interest",
     },
@@ -39,6 +36,9 @@ export default function Home() {
     setFocusedPointOfInterest(newfocus.center);
     setFocusObj(newfocus);
     setDrawer(true);
+  }
+  function setTab(tab){
+    if(tab == activeTab){setActiveTab("none")}else{setActiveTab(tab)}
   }
 
   return (
@@ -66,25 +66,25 @@ export default function Home() {
           <div className={styles.focusheading}>
             <button 
               className={`${styles.focusheadingtext} ${activeTab === "filters" ? styles.activeTab : ""}`}
-              onClick={() => setActiveTab("filters")}
+              onClick={() => setTab("filters")}
             >
               Filters
             </button>
             <button 
               className={`${styles.focusheadingtext} ${activeTab === "menu" ? styles.activeTab : ""}`}
-              onClick={() => setActiveTab("menu")}
+              onClick={() => setTab("menu")}
             >
               Menu
             </button>
             <button 
               className={`${styles.focusheadingtext} ${activeTab === "ai" ? styles.activeTab : ""}`}
-              onClick={() => setActiveTab("ai")}
+              onClick={() => setTab("ai")}
             >
               AI
             </button>
           </div>
           <div className={styles.focuscontent}>
-            {activeTab === "filters" && (
+            {activeTab === "none" && (
               <>
                 {pointsOfInterest.map((p) => (
                   <div
@@ -100,6 +100,14 @@ export default function Home() {
                 ))}
               </>
             )}
+
+            {activeTab === "filters" && (
+              <div className={styles.menuContent}>
+                <h3>Filter Options</h3>
+                <p>Filter options will go here</p>
+              </div>
+            )}
+
             {activeTab === "menu" && (
               <div className={styles.menuContent}>
                 <h3>Menu Options</h3>
