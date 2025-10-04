@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import { PointOfInterestMarker } from "./PointOfInterestMarker";
 
 // Dynamically import all react-leaflet components
 const MapContainer = dynamic(
@@ -18,7 +19,14 @@ const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), {
   ssr: false,
 });
 
-export default function MapC() {
+const fillBlueOptions = { fillColor: "blue" };
+const blackOptions = { color: "black" };
+const limeOptions = { color: "lime" };
+const purpleOptions = { color: "purple" };
+const redOptions = { color: "red" };
+const blueOptions = { color: "blue" };
+
+export default function MapC({ pointsOfInterest }) {
   const [L, setLeaflet] = useState(null);
   const [icon, setIcon] = useState(null);
 
@@ -57,7 +65,39 @@ export default function MapC() {
             <br /> Example point of interest.
           </Popup>
         </Marker>
+        {pointsOfInterest.map((p) => (
+          <PointOfInterestMarker {...p} />
+        ))}
       </MapContainer>
     </div>
   );
 }
+
+//  {/* <Rectangle
+//           bounds={[
+//             [47.6, -122.3321],
+//             [47.59, -122.321],
+//           ]}
+//           pathOptions={blueOptions}
+//         >
+//           <Popup>
+//             <b>Seattle Center</b>
+//             <br /> Example point of interest.
+//           </Popup>
+//         </Rectangle>
+//         <Rectangle
+//           bounds={[
+//             [47.63, -122.32],
+//             [47.637, -122.3134],
+//           ]}
+//           pathOptions={blueOptions}
+//         >
+//           <Popup>
+//             <b>Seattle Center</b>
+//             <br /> Example point of interest.
+//           </Popup>
+//         </Rectangle> */}
+//         {/* <PointOfInterestMarker
+//           bounds={}
+//           title={"Point of "}
+//         /> */}
