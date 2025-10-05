@@ -1,180 +1,205 @@
-import dynamic from "next/dynamic";
-import pscaaAirQualityData from "../assets/seattle_pscaa_air_quality_data.json";
+'use client';
+import React, { useEffect, useMemo, useState } from 'react';
+import dynamic from 'next/dynamic';
+import { useMap } from 'react-leaflet';
 
-// Dynamically import HeatmapLayer to avoid SSR issues
-const HeatmapLayer = dynamic(
-  () => import("react-leaflet-heatmap-layer-v3").then((mod) => mod.HeatmapLayer),
-  { ssr: false }
-);
-
-// Dynamically import react-leaflet components
-const MapContainer = dynamic(
-  () => import("react-leaflet").then((mod) => mod.MapContainer),
-  { ssr: false }
-);
-const TileLayer = dynamic(
-  () => import("react-leaflet").then((mod) => mod.TileLayer),
-  { ssr: false }
-);
+// Dynamically import React-Leaflet components that rely on the DOM
 const CircleMarker = dynamic(
-  () => import("react-leaflet").then((mod) => mod.CircleMarker),
+  () => import('react-leaflet').then((m) => m.CircleMarker),
   { ssr: false }
 );
 const Popup = dynamic(
-  () => import("react-leaflet").then((mod) => mod.Popup),
+  () => import('react-leaflet').then((m) => m.Popup),
   { ssr: false }
 );
 
-// Air Quality overlay as a heatmap using PSCAA data
+// ------------------------------------------------------------------
+// Heatmap Layer Hook – loads Leaflet only on the client
+// ------------------------------------------------------------------
+const PSCAAHeatLayer = ({ sensors }) => {
+  const map = useMap();
+
+  // Memoize points to avoid re-creating array on every render
+  const points = useMemo(
+    () =>
+      sensors
+        .filter(s => s.lat && s.lon && s.air_quality?.overall_aqi)
+        .map(({ lat, lon, air_quality }) => [
+          lat,
+          lon,
+          air_quality.overall_aqi / 60, // Normalize to max observed AQI (59) for better color distribution
+        ]),
+    [sensors]
+  );
+
+  useEffect(() => {
+    if (!map || !points.length) return;
+
+    let heatLayer;
+
+    // Load Leaflet Heat dynamically
+    const loadHeatLayer = async () => {
+      const L = (await import('leaflet')).default;
+      await import('leaflet.heat'); // only import once
+
+      heatLayer = L.heatLayer(points, {
+        radius: 80,
+        blur: 50,
+        max: 0.8,
+        minOpacity: 0.5,
+        gradient: {
+          0.5: '#00e400',
+          0.65: '#ffff00',
+          0.8: '#ff7e00',
+          0.92: '#ff0000',
+          1.0: '#8f3f97',
+        },
+      }).addTo(map);
+    };
+
+    loadHeatLayer();
+
+    return () => {
+      if (heatLayer) map.removeLayer(heatLayer);
+    };
+  }, [map, points]);
+
+  return null;
+};
+
+// ------------------------------------------------------------------
+// Helper functions for AQI & traffic color/labels
+// ------------------------------------------------------------------
+const getAQIColor = (aqi) => {
+  if (aqi <= 50) return '#00e400';
+  if (aqi <= 100) return '#ffff00';
+  if (aqi <= 150) return '#ff7e00';
+  if (aqi <= 200) return '#ff0000';
+  if (aqi <= 300) return '#8f3f97';
+  return '#7e0023';
+};
+
+const getTrafficColor = (impact) =>
+  impact.includes('High')
+    ? '#ff4444'
+    : impact.includes('Moderate')
+    ? '#ffaa00'
+    : '#44ff44';
+
+const getTrafficLevel = (impact) =>
+  impact.includes('High') ? 'HIGH' : impact.includes('Moderate') ? 'MODERATE' : 'LOW';
+
+// ------------------------------------------------------------------
+// Main Overlay Component
+// ------------------------------------------------------------------
 export const AirQualityOverlay = () => {
-  // Convert PSCAA sensor data → heatmap data format [lat, lng, intensity]
-  const heatmapPoints = pscaaAirQualityData.sensors.map((sensor) => {
-    const { lat, lon, air_quality } = sensor;
-    const aqi = air_quality.overall_aqi;
-    return [lat, lon, aqi]; // intensity = AQI
-  });
+  const [pscaaAirQualityData, setPscaaAirQualityData] = useState(null);
 
-  // Get AQI color based on value
-  const getAQIColor = (aqi) => {
-    if (aqi <= 50) return '#00e400'; // Good - Green
-    if (aqi <= 100) return '#ffff00'; // Moderate - Yellow
-    if (aqi <= 150) return '#ff7e00'; // Unhealthy for Sensitive - Orange
-    if (aqi <= 200) return '#ff0000'; // Unhealthy - Red
-    if (aqi <= 300) return '#8f3f97'; // Very Unhealthy - Purple
-    return '#7e0023'; // Hazardous - Maroon
-  };
+  // Load the JSON data on mount
+  useEffect(() => {
+    fetch('/seattle_pscaa_air_quality_data.json')
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to fetch air quality data');
+        return res.json();
+      })
+      .then(data => setPscaaAirQualityData(data))
+      .catch(error => console.error('Error loading air quality data:', error));
+  }, []);
 
-  // Get traffic impact color based on level
-  const getTrafficColor = (trafficImpact) => {
-    if (trafficImpact.includes('High')) return '#ff4444'; // Red for high traffic
-    if (trafficImpact.includes('Moderate')) return '#ffaa00'; // Orange for moderate traffic
-    return '#44ff44'; // Green for low traffic
-  };
+  // Memoize sensors to stabilize reference
+  const sensors = useMemo(() => pscaaAirQualityData?.sensors || [], [pscaaAirQualityData]);
 
-  // Get traffic impact level text
-  const getTrafficLevel = (trafficImpact) => {
-    if (trafficImpact.includes('High')) return 'HIGH';
-    if (trafficImpact.includes('Moderate')) return 'MODERATE';
-    return 'LOW';
-  };
+  if (!pscaaAirQualityData) {
+    return null; // or a loading spinner
+  }
 
   return (
     <>
-      {/* Heatmap Layer */}
-      <HeatmapLayer
-        fitBoundsOnLoad
-        fitBoundsOnUpdate
-        points={heatmapPoints}
-        longitudeExtractor={(p) => p[1]}
-        latitudeExtractor={(p) => p[0]}
-        intensityExtractor={(p) => p[2]}
-        radius={80}
-        blur={35}
-        max={100}
-        minOpacity={0.4}
-      />
-      
-      {/* Hover Markers with Popups */}
-      {pscaaAirQualityData.sensors.map((sensor, index) => {
+      {/* Heatmap layer (AQI intensity) */}
+      <PSCAAHeatLayer sensors={sensors} />
+
+      {/* Station circle markers */}
+      {sensors.map((sensor, i) => {
         const { lat, lon, station_name, air_quality, traffic_impact, last_updated } = sensor;
         const aqi = air_quality.overall_aqi;
-        const category = air_quality.category;
-        const riskLevel = air_quality.risk_level;
-        
+        const color = getAQIColor(aqi);
+
         return (
           <CircleMarker
-            key={`air-quality-${index}`}
+            key={`aq-${i}`}
             center={[lat, lon]}
             radius={10}
             pathOptions={{
               color: getTrafficColor(traffic_impact),
-              fillColor: getAQIColor(aqi),
+              fillColor: color,
               fillOpacity: 0.8,
-              weight: 3
+              weight: 3,
             }}
           >
             <Popup>
-              <div style={{ 
-                fontFamily: 'Inter, sans-serif', 
-                fontSize: '14px', 
-                color: '#333',
-                minWidth: '200px'
-              }}>
-                <h3 style={{ 
-                  margin: '0 0 8px 0', 
-                  color: '#2c3e50',
-                  fontSize: '16px',
-                  fontWeight: 'bold'
-                }}>
+              <div
+                style={{
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: 14,
+                  minWidth: 200,
+                }}
+              >
+                <h3
+                  style={{
+                    margin: '0 0 8px',
+                    color: '#2c3e50',
+                    fontSize: 16,
+                  }}
+                >
                   {station_name}
                 </h3>
-                
-                <div style={{ marginBottom: '8px' }}>
-                  <strong>Air Quality Index: </strong>
-                  <span style={{ 
-                    color: getAQIColor(aqi),
-                    fontWeight: 'bold',
-                    fontSize: '16px'
-                  }}>
-                    {aqi}
-                  </span>
-                  <span style={{ 
-                    color: getAQIColor(aqi),
-                    fontWeight: 'bold',
-                    marginLeft: '8px'
-                  }}>
-                    ({category})
-                  </span>
+
+                <div style={{ marginBottom: 8 }}>
+                  <strong>AQI: </strong>
+                  <span style={{ color, fontWeight: 'bold' }}>{aqi}</span> ({air_quality.category})
                 </div>
-                
-                <div style={{ marginBottom: '8px' }}>
+
+                <div style={{ marginBottom: 8 }}>
                   <strong>Risk Level: </strong>
-                  <span style={{ color: getAQIColor(aqi) }}>
-                    {riskLevel}
-                  </span>
+                  <span style={{ color }}>{air_quality.risk_level}</span>
                 </div>
-                
-                <div style={{ 
-                  marginBottom: '8px', 
-                  padding: '6px 8px',
-                  backgroundColor: '#f8f9fa',
-                  borderRadius: '4px',
-                  border: `2px solid ${getTrafficColor(traffic_impact)}`
-                }}>
-                  <strong>Traffic Impact: </strong>
-                  <span style={{ 
-                    color: getTrafficColor(traffic_impact),
-                    fontWeight: 'bold'
-                  }}>
+
+                <div
+                  style={{
+                    marginBottom: 8,
+                    padding: '6px 8px',
+                    background: '#f8f9fa',
+                    borderRadius: 4,
+                    border: `2px solid ${getTrafficColor(traffic_impact)}`,
+                  }}
+                >
+                  <strong>Traffic: </strong>
+                  <span
+                    style={{
+                      color: getTrafficColor(traffic_impact),
+                      fontWeight: 'bold',
+                    }}
+                  >
                     {getTrafficLevel(traffic_impact)} - {traffic_impact}
                   </span>
                 </div>
-                
+
                 {air_quality.pollutants && (
-                  <div style={{ marginBottom: '8px' }}>
-                    <strong>Key Pollutants:</strong>
-                    <ul style={{ margin: '4px 0', paddingLeft: '16px' }}>
-                      {air_quality.pollutants.pm25 && (
-                        <li>PM2.5: {air_quality.pollutants.pm25.concentration} μg/m³</li>
-                      )}
-                      {air_quality.pollutants.ozone && (
-                        <li>Ozone: {air_quality.pollutants.ozone.concentration} ppm</li>
-                      )}
-                      {air_quality.pollutants.no2 && (
-                        <li>NO₂: {air_quality.pollutants.no2.concentration} ppb</li>
-                      )}
-                    </ul>
-                  </div>
+                  <ul style={{ margin: 4, paddingLeft: 16 }}>
+                    {air_quality.pollutants.pm25 && (
+                      <li>PM2.5: {air_quality.pollutants.pm25.concentration} μg/m³</li>
+                    )}
+                    {air_quality.pollutants.ozone && (
+                      <li>O₃: {air_quality.pollutants.ozone.concentration} ppm</li>
+                    )}
+                    {air_quality.pollutants.no2 && (
+                      <li>NO₂: {air_quality.pollutants.no2.concentration} ppb</li>
+                    )}
+                  </ul>
                 )}
-                
-                <div style={{ 
-                  fontSize: '12px', 
-                  color: '#666',
-                  marginTop: '8px',
-                  borderTop: '1px solid #eee',
-                  paddingTop: '4px'
-                }}>
-                  Last Updated: {new Date(last_updated).toLocaleString()}
+
+                <div style={{ fontSize: 12, color: '#666', marginTop: 8 }}>
+                  Updated: {new Date(last_updated).toLocaleString()}
                 </div>
               </div>
             </Popup>
