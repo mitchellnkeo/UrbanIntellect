@@ -155,6 +155,88 @@ const UrbanPlanningChatbot = ({
     checkConnection();
   };
 
+  // Enhanced markdown parser for AI responses
+  const parseMarkdown = (text) => {
+    if (!text) return text;
+    
+    // Split by double newlines to create sections
+    const sections = text.split('\n\n').filter(section => section.trim());
+    
+    return sections.map((section, index) => {
+      let formattedText = section.trim();
+      
+      // Handle bold text **text**
+      formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      
+      // Handle bullet points - item (including nested bullets)
+      if (formattedText.includes('\n- ') || formattedText.startsWith('- ')) {
+        const lines = formattedText.split('\n');
+        const items = [];
+        let currentItem = '';
+        
+        lines.forEach(line => {
+          if (line.startsWith('- ')) {
+            if (currentItem) {
+              items.push(currentItem.replace(/^- /, '').trim());
+            }
+            currentItem = line;
+          } else if (line.trim() && currentItem) {
+            currentItem += ' ' + line.trim();
+          }
+        });
+        
+        if (currentItem) {
+          items.push(currentItem.replace(/^- /, '').trim());
+        }
+        
+        return (
+          <ul key={index} className="ai-bullet-list">
+            {items.map((item, itemIndex) => (
+              <li key={itemIndex} dangerouslySetInnerHTML={{ __html: item }} />
+            ))}
+          </ul>
+        );
+      }
+      
+      // Handle numbered lists
+      if (/^\d+\./.test(formattedText)) {
+        const lines = formattedText.split('\n');
+        const items = [];
+        let currentItem = '';
+        
+        lines.forEach(line => {
+          if (/^\d+\./.test(line)) {
+            if (currentItem) {
+              items.push(currentItem.replace(/^\d+\./, '').trim());
+            }
+            currentItem = line;
+          } else if (line.trim() && currentItem) {
+            currentItem += ' ' + line.trim();
+          }
+        });
+        
+        if (currentItem) {
+          items.push(currentItem.replace(/^\d+\./, '').trim());
+        }
+        
+        return (
+          <ol key={index} className="ai-numbered-list">
+            {items.map((item, itemIndex) => (
+              <li key={itemIndex} dangerouslySetInnerHTML={{ __html: item }} />
+            ))}
+          </ol>
+        );
+      }
+      
+      // Regular paragraph with proper spacing
+      return (
+        <div key={index} className="ai-paragraph">
+          <p dangerouslySetInnerHTML={{ __html: formattedText }} />
+        </div>
+      );
+    });
+  };
+
   return (
     <div className={`urban-planning-chatbot ${className}`} style={style}>
       {/* Header */}
@@ -234,7 +316,7 @@ const UrbanPlanningChatbot = ({
         {chatMessages.map((message) => (
           <div key={message.id} className={`message ${message.type}`}>
             <div className="message-content">
-              <p>{message.text}</p>
+              {message.type === 'ai' ? parseMarkdown(message.text) : <p>{message.text}</p>}
               {message.recommendations && message.recommendations.length > 0 && (
                 <div className="recommendations">
                   <h4>📋 Recommendations:</h4>

@@ -173,6 +173,43 @@ button{
   margin-bottom: 0;
 }
 
+/* AI Response Formatting */
+.ai-bullet-list {
+  margin: 8px 0;
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+.ai-bullet-list li {
+  margin: 4px 0;
+  line-height: 1.4;
+}
+
+.ai-numbered-list {
+  margin: 8px 0;
+  padding-left: 20px;
+  list-style-type: decimal;
+}
+
+.ai-numbered-list li {
+  margin: 4px 0;
+  line-height: 1.4;
+}
+
+.message-content strong {
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+.ai-paragraph {
+  margin: 12px 0;
+}
+
+.ai-paragraph p {
+  margin: 0;
+  line-height: 1.4;
+}
+
 .message.user .message-content {
   background: #007bff;
   color: white;
