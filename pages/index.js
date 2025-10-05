@@ -4,11 +4,15 @@ import MapC from "../components/map.js";
 import UrbanPlanningChatbot from "../components/UrbanPlanningChatbox.jsx";
 import { useState } from "react";
 import Drawer from '@mui/material/Drawer';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 export default function Home() {
   const [focusedPointOfInterest, setFocusedPointOfInterest] = useState(null); //Now tracking focused poi by Center to push to map
   const [focusobj, setFocusObj] = useState(null)
-  const [activeTab, setActiveTab] = useState("filters"); // New state for tab management
+  const [activeTab, setActiveTab] = useState("none"); // New state for tab management
+  const [filters, setFilters] = useState([0]);
   const [draweropen, setDrawer] = useState(false);
   
   // Chat state management - moved to parent to persist across tab switches
@@ -45,6 +49,13 @@ export default function Home() {
   }
   function setTab(tab){
     if(tab == activeTab){setActiveTab("none")}else{setActiveTab(tab)}
+    console.log(filters)
+  }
+  function toggleFilters(filter, value){
+    if(filter == 1){
+      if(value){setFilters(prev => prev.map((valuech, index) => index === 0 ? 1 : valuech));}
+      if(!value){setFilters(prev => prev.map((valuech, index) => index === 0 ? 0 : valuech));}
+    }
   }
 
   return (
@@ -64,8 +75,9 @@ export default function Home() {
         <div className={styles.mapcontainer}>
           <MapC
             pointsOfInterest={pointsOfInterest}
+            filters={filters}
             focusedPointOfInterest={focusedPointOfInterest}
-            setFocusedPointOfInterest={setFocusedPointOfInterest}
+            setFocus={setFocus}
           />
         </div>
         <div className={styles.focuscontainer}>
@@ -110,7 +122,10 @@ export default function Home() {
             {activeTab === "filters" && (
               <div className={styles.menuContent}>
                 <h3>Filter Options</h3>
-                <p>Filter options will go here</p>
+                  <FormGroup>
+                    <FormControlLabel control={<Checkbox checked={filters[0]} onChange={(event) => {toggleFilters(1 , event.target.checked)}} />} label="Population Density" />
+  
+                  </FormGroup>
               </div>
             )}
 

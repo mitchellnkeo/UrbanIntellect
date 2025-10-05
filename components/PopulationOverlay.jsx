@@ -14,6 +14,9 @@ const Popover = dynamic(
     ssr: false,
   }
 );
+const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), {
+  ssr: false,
+});
 
 // For displaying things like pollution and population density
 export const PopulationOverlay = () => {
@@ -25,8 +28,11 @@ export const PopulationOverlay = () => {
       <CircleMarker
         center={[d.lat, d.lng]}
         pathOptions={{ fillColor, stroke: false, opacity: 1 }}
-        radius={radius}
-      ></CircleMarker>
+        radius={radius}>
+      <Popup>
+        <b>Population Density: {d.size}</b>
+      </Popup>
+      </CircleMarker>
     );
   });
 };
