@@ -8,6 +8,7 @@ import Drawer from '@mui/material/Drawer';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import axios from 'axios';
 
 export default function Home() {
   const [focusedPointOfInterest, setFocusedPointOfInterest] = useState(null); //Now tracking focused poi by Center to push to map
@@ -53,10 +54,36 @@ export default function Home() {
     setHoveredPoint(null);
   };
 
-  // Handle prompt selection
+  // Handle prompt selection - auto-send the prompt
   const handlePromptSelect = (prompt) => {
     setChatInput(prompt);
     setShowPromptSelector(false);
+    
+    // Auto-send the prompt after a short delay to ensure chat is ready
+    setTimeout(() => {
+      // Trigger the send message function
+      if (chatConnected && prompt.trim()) {
+        // Create a user message
+        const userMessage = {
+          id: Date.now(),
+          type: 'user',
+          text: prompt,
+          timestamp: new Date().toISOString()
+        };
+        
+        // Add to messages
+        setChatMessages(prev => [...prev, userMessage]);
+        
+        // Clear input
+        setChatInput('');
+        
+        // Set loading state
+        setChatLoading(true);
+        
+        // Send to AI (we'll need to call the AI service directly)
+        sendMessageToAI(prompt);
+      }
+    }, 100);
   };
 
   // Handle switching between prompt selector and chat
@@ -66,6 +93,51 @@ export default function Home() {
 
   const handleShowChat = () => {
     setShowPromptSelector(false);
+  };
+
+  // Function to send message to AI service
+  const sendMessageToAI = async (message) => {
+    const API_BASE_URL = process.env.REACT_APP_AI_API_URL || 'http://localhost:8000';
+    
+    try {
+      const response = await axios.post(`${API_BASE_URL}/chat`, {
+        message: message
+      }, { timeout: 30000 });
+      
+      // Create AI message
+      const aiMessage = {
+        id: Date.now() + 1,
+        type: 'ai',
+        text: response.data.response,
+        intent: response.data.intent,
+        confidence: response.data.confidence,
+        recommendations: response.data.recommendations || [],
+        timestamp: response.data.timestamp || new Date().toISOString()
+      };
+
+      // Add AI message to chat
+      setChatMessages(prev => [...prev, aiMessage]);
+      
+      // If there are recommendations, update the map
+      if (aiMessage.recommendations && aiMessage.recommendations.length > 0) {
+        updatePointsOfInterestFromAI(aiMessage.recommendations);
+      }
+      
+    } catch (error) {
+      console.error('AI service error:', error);
+      
+      // Create error message
+      const errorMessage = {
+        id: Date.now() + 1,
+        type: 'error',
+        text: 'Sorry, I encountered an error. Please try again.',
+        timestamp: new Date().toISOString()
+      };
+      
+      setChatMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setChatLoading(false);
+    }
   };
   function setTab(tab){
     if(tab == activeTab){setActiveTab("none")}else{setActiveTab(tab)}
