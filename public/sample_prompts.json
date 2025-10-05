@@ -1,0 +1,179 @@
+{
+  "categories": [
+    {
+      "name": "Development & Housing",
+      "description": "Basic and advanced development questions",
+      "prompts": [
+        "Where should I develop 200 houses?",
+        "Where should I build 500 housing units?",
+        "What are the best locations for residential development?",
+        "Show me areas suitable for 1000 new homes",
+        "Where should I NOT develop 300 houses?",
+        "What are the worst places for urban development?",
+        "Compare neighborhoods for development potential",
+        "Analyze development risks in high-density areas"
+      ]
+    },
+    {
+      "name": "Greenspace & Environment",
+      "description": "Environmental and green infrastructure planning",
+      "prompts": [
+        "Where should I add more parks and greenspace?",
+        "Show me areas that need greenspace development",
+        "What neighborhoods need more green infrastructure?",
+        "Where should I plant trees and create green corridors?",
+        "Where should I focus on air pollution reduction?",
+        "Show me areas with environmental concerns",
+        "What neighborhoods need green infrastructure?",
+        "Analyze environmental risks by neighborhood"
+      ]
+    },
+    {
+      "name": "Social Services & Community",
+      "description": "Community and social infrastructure needs",
+      "prompts": [
+        "Where should I focus on supporting vulnerable populations?",
+        "Show me areas that need social services",
+        "What neighborhoods need community centers?",
+        "Where should I prioritize social infrastructure?",
+        "Analyze community service needs by area",
+        "Show me neighborhoods needing social support",
+        "Where should I build community facilities?"
+      ]
+    },
+    {
+      "name": "Data Analysis & Insights",
+      "description": "Statistical and density analysis",
+      "prompts": [
+        "What's the current density distribution?",
+        "Show me the highest density areas",
+        "Compare neighborhoods by population density",
+        "Analyze density patterns across Seattle",
+        "What are the density statistics for Seattle?",
+        "Show me percentile analysis of population density",
+        "What are the extreme density areas?",
+        "Analyze density variation across neighborhoods"
+      ]
+    },
+    {
+      "name": "Comprehensive Analysis",
+      "description": "Population density + air quality analysis",
+      "prompts": [
+        "Give me a comprehensive urban planning analysis",
+        "What are the best areas for sustainable development?",
+        "Where should we prioritize environmental improvements?",
+        "Which areas combine good density with clean air?",
+        "What are the development opportunities considering air quality?",
+        "Where should we avoid development due to environmental concerns?",
+        "How do population density and air quality interact?",
+        "What are the environmental planning priorities?"
+      ]
+    },
+    {
+      "name": "Planning Scenarios",
+      "description": "Specific planning objectives",
+      "prompts": [
+        "Where should I focus for balanced urban development?",
+        "Show me areas for mixed-use development",
+        "What neighborhoods need balanced growth?",
+        "Where should I reduce traffic congestion?",
+        "Show me areas for transit-oriented development",
+        "What neighborhoods need infrastructure improvements?",
+        "Where should I focus on walkability?"
+      ]
+    },
+    {
+      "name": "Comparative Analysis",
+      "description": "Neighborhood comparisons and risk assessment",
+      "prompts": [
+        "Compare the top 5 neighborhoods for development",
+        "Show me the best and worst areas for housing",
+        "Compare high-density vs low-density areas",
+        "Analyze development potential across all neighborhoods",
+        "What are the development risks by area?",
+        "Show me high-risk development locations",
+        "Analyze infrastructure capacity by neighborhood",
+        "What areas have development constraints?"
+      ]
+    },
+    {
+      "name": "Emergency & Crisis Planning",
+      "description": "Crisis and emergency preparedness",
+      "prompts": [
+        "Where should I focus emergency planning efforts?",
+        "Show me areas vulnerable to population density issues",
+        "What neighborhoods need emergency infrastructure?",
+        "Analyze evacuation capacity by area",
+        "Where are the highest risk areas for overcrowding?",
+        "Show me areas that need emergency services",
+        "What neighborhoods are most vulnerable?"
+      ]
+    },
+    {
+      "name": "Advanced Analytics",
+      "description": "ML-powered insights and performance metrics",
+      "prompts": [
+        "Show me AI-powered development recommendations",
+        "What does the machine learning analysis suggest?",
+        "Analyze neighborhood clustering patterns",
+        "Show me predictive development insights",
+        "Show me AI performance analytics",
+        "What are the model accuracy metrics?",
+        "Analyze feature importance for recommendations",
+        "Show me learning data and feedback patterns"
+      ]
+    },
+    {
+      "name": "Creative Planning",
+      "description": "Innovative and future-focused development",
+      "prompts": [
+        "Where should I create a new urban innovation district?",
+        "Show me areas for smart city development",
+        "What neighborhoods are best for tech hubs?",
+        "Where should I focus on sustainable development?",
+        "Where should I plan for future growth?",
+        "Show me areas for 20-year development planning",
+        "What neighborhoods have the most potential?",
+        "Where should I focus long-term infrastructure?"
+      ]
+    },
+    {
+      "name": "Quick Start",
+      "description": "Beginner-friendly and comprehensive analysis",
+      "prompts": [
+        "Help me understand Seattle's population density",
+        "What can this AI tell me about urban planning?",
+        "Show me the basics of neighborhood analysis",
+        "How does this AI help with development decisions?",
+        "Run a comprehensive development analysis",
+        "Show me all available planning scenarios",
+        "Analyze multiple factors simultaneously",
+        "Provide detailed neighborhood comparisons"
+      ]
+    }
+  ],
+  "featured_prompts": [
+    "Where should I develop 200 houses?",
+    "What's the current density distribution?",
+    "Where should I add more parks and greenspace?",
+    "Show me the worst places for urban development",
+    "Where should I focus on supporting vulnerable populations?",
+    "Compare neighborhoods for development potential",
+    "Give me a comprehensive urban planning analysis",
+    "What are the best areas for sustainable development?",
+    "Show me AI-powered development recommendations",
+    "Help me understand Seattle's population density"
+  ],
+  "quick_start": [
+    "Where should I develop 200 houses?",
+    "What's the current density distribution?",
+    "Where should I add more parks and greenspace?",
+    "Show me the worst places for urban development",
+    "Where should I focus on supporting vulnerable populations?",
+    "Compare neighborhoods for development potential",
+    "Give me a comprehensive urban planning analysis",
+    "What are the best areas for sustainable development?",
+    "Show me AI-powered development recommendations",
+    "Help me understand Seattle's population density"
+  ]
+}
