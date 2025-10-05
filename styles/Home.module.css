@@ -30,29 +30,196 @@
   border-radius: 15px;
   font-size: 1.5rem;
   overflow: hidden;
-  /* background-color: #23201f; */
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+  border: 1px solid #333;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .focusheading {
   display: flex;
   justify-content: space-around;
-  text-decoration: underline;
+  background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
+  border-bottom: 1px solid #444;
+  padding: 0;
+  margin: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.focusheadingtext {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 16px 20px;
+  margin: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 0;
+  text-decoration: none;
+  position: relative;
+  flex: 1;
+  text-align: center;
 }
 
 .focusheadingtext:hover {
-  cursor: pointer;
+  background: linear-gradient(135deg, #4a4a4a 0%, #3a3a3a 100%);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.focusheadingtext:active {
+  transform: translateY(0);
+  background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
 }
 
 .activeTab {
   color: #4CAF50 !important;
   font-weight: bold;
-  text-decoration: underline;
+  background: linear-gradient(135deg, #2d5a2d 0%, #1a4a1a 100%) !important;
+  border-bottom: 3px solid #4CAF50 !important;
+  text-decoration: none !important;
+  box-shadow: inset 0 2px 4px rgba(76, 175, 80, 0.3);
 }
 
 .focuscontent {
   height: auto;
   width: 100%;
-  margin-top: 5%;
+  margin-top: 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+  border-radius: 0 0 15px 15px;
+  overflow-y: auto;
+  max-height: calc(100% - 60px);
+}
+
+/* Enhanced Filter Styling */
+.filterContainer {
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+  border: 1px solid #444;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 10px 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.filterTitle {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.filterItem {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
+  border: 1px solid #555;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.filterItem:hover {
+  background: linear-gradient(135deg, #4a4a4a 0%, #3a3a3a 100%);
+  border-color: #666;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.filterLabel {
+  color: #fff !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  margin-left: 12px !important;
+  cursor: pointer !important;
+  flex: 1;
+}
+
+.filterCheckbox {
+  color: #4CAF50 !important;
+}
+
+.filterCheckbox.Mui-checked {
+  color: #4CAF50 !important;
+}
+
+.filterCheckbox .MuiSvgIcon-root {
+  font-size: 24px !important;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px;
+}
+
+/* AI Tab Styling */
+.aiContent {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.aiChatbot {
+  height: 100% !important;
+  width: 100% !important;
+  border-radius: 8px;
+  background-color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chatContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chatHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
+  border-bottom: 1px solid #444;
+  border-radius: 8px 8px 0 0;
+}
+
+.backToPromptsButton, .chatButton {
+  background: linear-gradient(135deg, #4a4a4a 0%, #3a3a3a 100%);
+  border: 1px solid #555;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.backToPromptsButton:hover, .chatButton:hover {
+  background: linear-gradient(135deg, #5a5a5a 0%, #4a4a4a 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.promptSelector {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 .poiitem {
