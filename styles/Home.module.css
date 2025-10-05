@@ -77,6 +77,8 @@
 .menuContent {
   padding: 20px;
   color: white;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
 }
 
 .menuContent h3 {
@@ -84,13 +86,256 @@
   color: #4CAF50;
 }
 
+/* AI Recommendations Styles */
+.recommendationsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.recommendationCard {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 16px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.recommendationCard:hover {
+  border-color: #4CAF50;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
+  transform: translateY(-2px);
+}
+
+.recommendationCard:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(76, 175, 80, 0.3);
+}
+
+.recommendationCard::after {
+  content: "🔍 Click to view on map";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 10px;
+  color: #888;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.recommendationCard:hover::after {
+  opacity: 1;
+}
+
+.recommendationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #333;
+}
+
+.recommendationHeader h4 {
+  margin: 0;
+  color: #4CAF50;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.clickHint {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-left: 8px;
+}
+
+
+.scoreBadge {
+  background: #4CAF50;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.recommendationContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.advice, .density, .neighborhood {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.advice strong, .density strong, .neighborhood strong {
+  color: #4CAF50;
+}
+
+.reasons {
+  margin-top: 8px;
+}
+
+.reasons strong {
+  color: #4CAF50;
+  font-size: 14px;
+}
+
+.reasons ul {
+  margin: 8px 0 0 0;
+  padding-left: 20px;
+}
+
+.reasons li {
+  margin: 4px 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.noRecommendations {
+  text-align: center;
+  padding: 40px 20px;
+  color: #888;
+}
+
+.noRecommendations p {
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+/* Neighborhood Cards Styles */
+.neighborhoodsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.neighborhoodCard {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 16px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.neighborhoodCard:hover {
+  border-color: #4CAF50;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
+  transform: translateY(-2px);
+}
+
+.neighborhoodCard:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(76, 175, 80, 0.3);
+}
+
+.neighborhoodCard::after {
+  content: "🔍 Click to view on map";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 10px;
+  color: #888;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.neighborhoodCard:hover::after {
+  opacity: 1;
+}
+
+.neighborhoodHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #333;
+}
+
+.neighborhoodHeader h4 {
+  margin: 0;
+  color: #4CAF50;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.neighborhoodContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.neighborhoodDescription {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #e0e0e0;
+}
+
 .drawercontainer{
   color: antiquewhite;
   height: 100%;
-  padding: 5%;
+  padding: 0;
   background-color: #060808;
   display: flex;
   flex-direction: column;
+}
+
+.drawerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 5% 15px 5%;
+  background: #2a2a2a;
+  border-bottom: 1px solid #333;
+  margin-bottom: 20px;
+}
+
+.drawerHeader h1 {
+  margin: 0;
+  color: #4CAF50;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.drawerCloseButton {
+  background: #ff4444;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.drawerCloseButton:hover {
+  background: #ff6666;
+  transform: scale(1.1);
+}
+
+.drawerCloseButton:active {
+  transform: scale(0.95);
+}
+
+.drawerBody {
+  padding: 0 5% 20px 5%;
 }
 
 .aiContent {
@@ -144,6 +389,54 @@
   color: #b0bec5;
 }
 
+/* Chat Container Styles */
+.chatContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  background: #2a2a2a;
+  border-bottom: 1px solid #333;
+  border-radius: 8px 8px 0 0;
+}
+
+.backToPromptsButton, .chatButton {
+  background: #333;
+  border: 1px solid #555;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.backToPromptsButton:hover {
+  background: #555;
+  border-color: #4CAF50;
+}
+
+.chatButton {
+  background: #4CAF50;
+  border: 1px solid #4CAF50;
+  color: white;
+}
+
+.chatButton:hover {
+  background: #45a049;
+}
+
+.promptSelector {
+  height: 100% !important;
+  width: 100% !important;
+}
+
 /* Hover Popup Styles */
 .hoverPopup {
   pointer-events: none;
@@ -154,11 +447,58 @@
   background: #1a1a1a;
   border: 2px solid #4CAF50;
   border-radius: 8px;
-  padding: 12px 16px;
+  padding: 0;
   max-width: 300px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   color: white;
   font-size: 14px;
+  overflow: hidden;
+}
+
+.popupHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #2a2a2a;
+  border-bottom: 1px solid #333;
+}
+
+.popupHeader h3 {
+  margin: 0;
+  color: #4CAF50;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.popupCloseButton {
+  background: #ff4444;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.popupCloseButton:hover {
+  background: #ff6666;
+  transform: scale(1.1);
+}
+
+.popupCloseButton:active {
+  transform: scale(0.95);
+}
+
+.popupBody {
+  padding: 12px 16px;
 }
 
 .popupContent h3 {
