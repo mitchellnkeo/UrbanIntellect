@@ -161,6 +161,67 @@
   padding: 2px;
 }
 
+/* AI Tab Styling */
+.aiContent {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.aiChatbot {
+  height: 100% !important;
+  width: 100% !important;
+  border-radius: 8px;
+  background-color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chatContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chatHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
+  border-bottom: 1px solid #444;
+  border-radius: 8px 8px 0 0;
+}
+
+.backToPromptsButton, .chatButton {
+  background: linear-gradient(135deg, #4a4a4a 0%, #3a3a3a 100%);
+  border: 1px solid #555;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.backToPromptsButton:hover, .chatButton:hover {
+  background: linear-gradient(135deg, #5a5a5a 0%, #4a4a4a 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.promptSelector {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
 .poiitem {
   min-height: 35px;
   font-size: 1.5rem;
