@@ -1,7 +1,7 @@
 {
   "categories": [
     {
-      "name": "🏠 Development & Housing",
+      "name": "Development & Housing",
       "description": "Basic and advanced development questions",
       "prompts": [
         "Where should I develop 200 houses?",
@@ -15,7 +15,7 @@
       ]
     },
     {
-      "name": "🌱 Greenspace & Environment",
+      "name": "Greenspace & Environment",
       "description": "Environmental and green infrastructure planning",
       "prompts": [
         "Where should I add more parks and greenspace?",
@@ -29,7 +29,7 @@
       ]
     },
     {
-      "name": "👥 Social Services & Community",
+      "name": "Social Services & Community",
       "description": "Community and social infrastructure needs",
       "prompts": [
         "Where should I focus on supporting vulnerable populations?",
@@ -42,7 +42,7 @@
       ]
     },
     {
-      "name": "📊 Data Analysis & Insights",
+      "name": "Data Analysis & Insights",
       "description": "Statistical and density analysis",
       "prompts": [
         "What's the current density distribution?",
@@ -56,7 +56,7 @@
       ]
     },
     {
-      "name": "🏘️🌫️ Comprehensive Analysis",
+      "name": "Comprehensive Analysis",
       "description": "Population density + air quality analysis",
       "prompts": [
         "Give me a comprehensive urban planning analysis",
@@ -70,7 +70,7 @@
       ]
     },
     {
-      "name": "🎯 Planning Scenarios",
+      "name": "Planning Scenarios",
       "description": "Specific planning objectives",
       "prompts": [
         "Where should I focus for balanced urban development?",
@@ -97,7 +97,7 @@
       ]
     },
     {
-      "name": "🚨 Emergency & Crisis Planning",
+      "name": "Emergency & Crisis Planning",
       "description": "Crisis and emergency preparedness",
       "prompts": [
         "Where should I focus emergency planning efforts?",
@@ -110,7 +110,7 @@
       ]
     },
     {
-      "name": "📈 Advanced Analytics",
+      "name": "Advanced Analytics",
       "description": "ML-powered insights and performance metrics",
       "prompts": [
         "Show me AI-powered development recommendations",
@@ -124,7 +124,7 @@
       ]
     },
     {
-      "name": "🎨 Creative Planning",
+      "name": "Creative Planning",
       "description": "Innovative and future-focused development",
       "prompts": [
         "Where should I create a new urban innovation district?",
@@ -138,7 +138,7 @@
       ]
     },
     {
-      "name": "💡 Quick Start",
+      "name": "Quick Start",
       "description": "Beginner-friendly and comprehensive analysis",
       "prompts": [
         "Help me understand Seattle's population density",
