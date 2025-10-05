@@ -325,13 +325,34 @@ export default function Home() {
             )}
 
             {activeTab === "filters" && (
-              <div className={styles.menuContent}>
-                <h3>Filter Options</h3>
-                    <FormGroup>
-                      <FormControlLabel control={<Checkbox checked={filters[0]} onChange={(event) => {toggleFilters(1 , event.target.checked)}} />} label="Population Density" />
-                      <FormControlLabel control={<Checkbox checked={filters[1]} onChange={(event) => {toggleFilters(2 , event.target.checked)}} />} label="AOD" />
-                      <FormControlLabel control={<Checkbox checked={filters[2]} onChange={(event) => {toggleFilters(3 , event.target.checked)}} />} label="Air Quality" />
-                    </FormGroup>
+              <div className={styles.filterContainer}>
+                <h3 className={styles.filterTitle}>Filter Options</h3>
+                <div className={styles.filterGroup}>
+                  <div className={styles.filterItem} onClick={() => toggleFilters(1, !filters[0])}>
+                    <Checkbox 
+                      checked={filters[0]} 
+                      onChange={(event) => {toggleFilters(1 , event.target.checked)}} 
+                      className={styles.filterCheckbox}
+                    />
+                    <span className={styles.filterLabel}>Population Density</span>
+                  </div>
+                  <div className={styles.filterItem} onClick={() => toggleFilters(2, !filters[1])}>
+                    <Checkbox 
+                      checked={filters[1]} 
+                      onChange={(event) => {toggleFilters(2 , event.target.checked)}} 
+                      className={styles.filterCheckbox}
+                    />
+                    <span className={styles.filterLabel}>AOD</span>
+                  </div>
+                  <div className={styles.filterItem} onClick={() => toggleFilters(3, !filters[2])}>
+                    <Checkbox 
+                      checked={filters[2]} 
+                      onChange={(event) => {toggleFilters(3 , event.target.checked)}} 
+                      className={styles.filterCheckbox}
+                    />
+                    <span className={styles.filterLabel}>Air Quality</span>
+                  </div>
+                </div>
               </div>
             )}
 
