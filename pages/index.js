@@ -13,7 +13,7 @@ import axios from 'axios';
 export default function Home() {
   const [focusedPointOfInterest, setFocusedPointOfInterest] = useState(null); //Now tracking focused poi by Center to push to map
   const [focusobj, setFocusObj] = useState(null)
-  const [activeTab, setActiveTab] = useState("none"); // New state for tab management
+  const [activeTab, setActiveTab] = useState("filters"); // New state for tab management - default to filters
   const [filters, setFilters] = useState([0, 0, 0]);
   const [draweropen, setDrawer] = useState(false);
   
