@@ -17,7 +17,9 @@ const UrbanPlanningChatbot = ({
   isLoading = null,
   setIsLoading = null,
   isConnected = null,
-  setIsConnected = null
+  setIsConnected = null,
+  // Callback for when recommendations are received
+  onRecommendationsReceived = null
 }) => {
   // Use props if provided, otherwise fall back to internal state
   const [internalMessages, setInternalMessages] = useState([]);
@@ -104,6 +106,11 @@ const UrbanPlanningChatbot = ({
       };
 
       setChatMessages(prev => [...prev, aiMessage]);
+      
+      // If there are recommendations, update the map
+      if (aiMessage.recommendations && aiMessage.recommendations.length > 0 && onRecommendationsReceived) {
+        onRecommendationsReceived(aiMessage.recommendations);
+      }
     } catch (error) {
       console.error('Chat error:', error);
       let errorText = 'Sorry, I encountered an error. Please try again.';

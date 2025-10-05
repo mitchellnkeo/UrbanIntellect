@@ -58,6 +58,56 @@ export default function Home() {
     }
   }
 
+  // Function to convert AI recommendations to points of interest
+  const updatePointsOfInterestFromAI = (recommendations) => {
+    if (!recommendations || !Array.isArray(recommendations)) return;
+    
+    const aiPointsOfInterest = recommendations.map((rec, index) => ({
+      id: `ai-${rec.neighborhood_id || index}`,
+      center: getNeighborhoodCoordinates(rec.neighborhood_id), // We'll need to implement this
+      title: `Neighborhood ${rec.neighborhood_id}`,
+      description: rec.development_advice || 'AI Recommended Area',
+      score: rec.score,
+      density: rec.density,
+      reasons: rec.reasons || [],
+      isAIRecommendation: true
+    }));
+    
+    // Replace existing points with AI recommendations
+    setPointsOfInterest(aiPointsOfInterest);
+  };
+
+  // Function to get coordinates for a neighborhood ID
+  // This would need to be implemented based on your neighborhood data structure
+  const getNeighborhoodCoordinates = (neighborhoodId) => {
+    // Placeholder coordinates - you'll need to map this to actual neighborhood coordinates
+    // This should match the coordinate system used in your neighborhood data
+    const neighborhoodCoordinates = {
+      '1': [47.6, -122.3321],
+      '2': [47.637, -122.3134],
+      '3': [47.64, -122.37],
+      '4': [47.62, -122.35],
+      '5': [47.65, -122.32],
+      '6': [47.58, -122.38],
+      '7': [47.67, -122.29],
+      '8': [47.61, -122.33],
+      '9': [47.63, -122.36],
+      '10': [47.59, -122.31],
+      '11': [47.66, -122.34],
+      '12': [47.57, -122.35],
+      '13': [47.64, -122.28],
+      '14': [47.62, -122.37],
+      '15': [47.68, -122.31],
+      '16': [47.58, -122.32],
+      '17': [47.65, -122.36],
+      '18': [47.61, -122.29],
+      '19': [47.63, -122.33],
+      '20': [47.59, -122.36]
+    };
+    
+    return neighborhoodCoordinates[neighborhoodId] || [47.6, -122.3321]; // Default to Seattle center
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -70,6 +120,23 @@ export default function Home() {
           <div className={styles.drawercontainer}> 
             <h1>{focusobj.title}</h1>
             <p>{focusobj.description}</p>
+            {focusobj.isAIRecommendation && (
+              <div className={styles.aiRecommendationDetails}>
+                <h3>AI Analysis</h3>
+                <p><strong>Score:</strong> {focusobj.score}/5</p>
+                {focusobj.density && <p><strong>Population Density:</strong> {focusobj.density.toFixed(0)} people/km²</p>}
+                {focusobj.reasons && focusobj.reasons.length > 0 && (
+                  <div>
+                    <h4>Reasons for Recommendation:</h4>
+                    <ul>
+                      {focusobj.reasons.map((reason, index) => (
+                        <li key={index}>{reason}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </Drawer>}
         <div className={styles.mapcontainer}>
@@ -148,6 +215,7 @@ export default function Home() {
                   setIsLoading={setChatLoading}
                   isConnected={chatConnected}
                   setIsConnected={setChatConnected}
+                  onRecommendationsReceived={updatePointsOfInterestFromAI}
                 />
               </div>
             )}
