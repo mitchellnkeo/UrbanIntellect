@@ -2,8 +2,10 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { PointOfInterestMarker } from "./PointOfInterestMarker";
 import { PopulationOverlay } from "./PopulationOverlay";
-import { AODOverlay } from "./AODOverlay";
-import { AirQualityOverlay } from "./AirQualityOverlay";
+
+// 🚀 Dynamically import overlay components (client-side only)
+const AODOverlay = dynamic(() => import("./AODOverlay").then(m => m.AODOverlay), { ssr: false });
+const AirQualityOverlay = dynamic(() => import("./AirQualityOverlay").then(m => m.AirQualityOverlay), { ssr: false });
 
 // Dynamically import all react-leaflet components
 const AutoPopup = dynamic(() => import("./AutoPopup"), { ssr: false });
@@ -19,15 +21,13 @@ const Marker = dynamic(
   () => import("react-leaflet").then((mod) => mod.Marker),
   { ssr: false }
 );
-const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), {
-  ssr: false,
-});
-
-// Small helper that moves the map when focusedPointOfInterest changes. Again we have to import dynamically to ensure it loads only in browser to avoid window not found errors.
-const FlyToFocusedPoint = dynamic(
-  () => import("./FlyToFocusedPoint"),
+const Popup = dynamic(
+  () => import("react-leaflet").then((mod) => mod.Popup),
   { ssr: false }
 );
+
+// Small helper that moves the map when focusedPointOfInterest changes
+const FlyToFocusedPoint = dynamic(() => import("./FlyToFocusedPoint"), { ssr: false });
 
 export default function MapC({ pointsOfInterest, filters, focusedPointOfInterest, setFocus, onPointHover, onPointLeave }) {
   const [L, setLeaflet] = useState(null);
