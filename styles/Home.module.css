@@ -77,11 +77,106 @@
 .menuContent {
   padding: 20px;
   color: white;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
 }
 
 .menuContent h3 {
   margin-bottom: 15px;
   color: #4CAF50;
+}
+
+/* AI Recommendations Styles */
+.recommendationsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.recommendationCard {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 16px;
+  transition: all 0.2s ease;
+}
+
+.recommendationCard:hover {
+  border-color: #4CAF50;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
+}
+
+.recommendationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #333;
+}
+
+.recommendationHeader h4 {
+  margin: 0;
+  color: #4CAF50;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.scoreBadge {
+  background: #4CAF50;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.recommendationContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.advice, .density {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.advice strong, .density strong {
+  color: #4CAF50;
+}
+
+.reasons {
+  margin-top: 8px;
+}
+
+.reasons strong {
+  color: #4CAF50;
+  font-size: 14px;
+}
+
+.reasons ul {
+  margin: 8px 0 0 0;
+  padding-left: 20px;
+}
+
+.reasons li {
+  margin: 4px 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.noRecommendations {
+  text-align: center;
+  padding: 40px 20px;
+  color: #888;
+}
+
+.noRecommendations p {
+  margin: 8px 0;
+  font-size: 14px;
 }
 
 .drawercontainer{

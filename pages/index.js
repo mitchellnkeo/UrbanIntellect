@@ -29,6 +29,7 @@ export default function Home() {
   const [chatInput, setChatInput] = useState('');
   const [chatLoading, setChatLoading] = useState(false);
   const [chatConnected, setChatConnected] = useState(false);
+  const [aiRecommendations, setAiRecommendations] = useState([]);
   const [pointsOfInterest, setPointsOfInterest] = useState([
   ]);
 
@@ -171,6 +172,9 @@ export default function Home() {
     
     // Replace existing points with AI recommendations
     setPointsOfInterest(aiPointsOfInterest);
+    
+    // Also store recommendations for Menu tab display
+    setAiRecommendations(prev => [...prev, ...recommendations]);
   };
 
   // Function to get coordinates for a neighborhood ID
@@ -297,8 +301,50 @@ export default function Home() {
 
             {activeTab === "menu" && (
               <div className={styles.menuContent}>
-                <h3>Menu Options</h3>
-                <p>Menu content will go here</p>
+                <h3>🤖 AI Recommendations</h3>
+                {aiRecommendations.length > 0 ? (
+                  <div className={styles.recommendationsList}>
+                    {aiRecommendations.map((rec, index) => (
+                      <div key={index} className={styles.recommendationCard}>
+                        <div className={styles.recommendationHeader}>
+                          <h4>📍 {rec.neighborhood || rec.name || `Recommendation ${index + 1}`}</h4>
+                          {rec.score && (
+                            <span className={styles.scoreBadge}>
+                              Score: {rec.score}/5
+                            </span>
+                          )}
+                        </div>
+                        <div className={styles.recommendationContent}>
+                          {rec.development_advice && (
+                            <p className={styles.advice}>
+                              <strong>💡 Advice:</strong> {rec.development_advice}
+                            </p>
+                          )}
+                          {rec.density && (
+                            <p className={styles.density}>
+                              <strong>👥 Population Density:</strong> {rec.density.toFixed(0)} people/km²
+                            </p>
+                          )}
+                          {rec.reasons && rec.reasons.length > 0 && (
+                            <div className={styles.reasons}>
+                              <strong>🎯 Why Recommended:</strong>
+                              <ul>
+                                {rec.reasons.map((reason, reasonIndex) => (
+                                  <li key={reasonIndex}>{reason}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className={styles.noRecommendations}>
+                    <p>🤖 No AI recommendations yet</p>
+                    <p>Go to the AI tab and ask a question to get personalized recommendations!</p>
+                  </div>
+                )}
               </div>
             )}
             {activeTab === "ai" && (
