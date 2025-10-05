@@ -1,0 +1,12 @@
+xarray
+pandas
+netcdf4
+h5netcdf
+requests
+earthaccess
+dotenv
+pytest
+pytest-mock
+numpy
+xarray
+pandas
