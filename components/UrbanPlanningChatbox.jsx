@@ -393,7 +393,7 @@ const UrbanPlanningChatbot = ({
           disabled={!chatConnected || chatLoading || !chatInput.trim()}
           className="send-button"
         >
-          {chatLoading ? '⏳' : '📤'}
+          {chatLoading ? 'Sending...' : 'Send'}
         </button>
       </div>
     </div>
