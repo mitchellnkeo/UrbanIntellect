@@ -20,12 +20,15 @@ const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), {
 
 // For displaying things like pollution and population density
 export const PopulationOverlay = () => {
-  return populationDensityData.data.map((d) => {
+  // FIX: Destructure the index (i) from the map function
+  return populationDensityData.data.map((d, i) => {
     const radius = d.size / 500;
     const fillColor = radius > 8 ? "red" : radius > 5 ? "orange" : "red";
 
     return (
       <CircleMarker
+        // FIX: Add the unique key prop to the top-level element
+        key={i} 
         center={[d.lat, d.lng]}
         pathOptions={{ fillColor, stroke: false, opacity: 1 }}
         radius={radius}>

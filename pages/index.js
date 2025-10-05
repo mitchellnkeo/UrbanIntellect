@@ -163,7 +163,7 @@ export default function Home() {
   };
   function setTab(tab){
     if(tab == activeTab){setActiveTab("none")}else{setActiveTab(tab)}
-    console.log(filters)
+    // console.log(filters)
   }
   function toggleFilters(filter, value){
     if(filter == 1){
