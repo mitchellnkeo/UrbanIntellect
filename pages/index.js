@@ -30,6 +30,7 @@ export default function Home() {
   const [chatLoading, setChatLoading] = useState(false);
   const [chatConnected, setChatConnected] = useState(false);
   const [aiRecommendations, setAiRecommendations] = useState([]);
+  const [recentPrompt, setRecentPrompt] = useState(null);
   const [pointsOfInterest, setPointsOfInterest] = useState([
   ]);
 
@@ -116,6 +117,9 @@ export default function Home() {
   // Function to send message to AI service
   const sendMessageToAI = async (message) => {
     const API_BASE_URL = process.env.REACT_APP_AI_API_URL || 'http://localhost:8000';
+    
+    // Track the most recent prompt
+    setRecentPrompt(message);
     
     try {
       const response = await axios.post(`${API_BASE_URL}/chat`, {
@@ -329,7 +333,13 @@ export default function Home() {
 
             {activeTab === "menu" && (
               <div className={styles.menuContent}>
-                <h3>🏘️ Recommended Neighborhoods</h3>
+                <h3>Recommended Neighborhoods</h3>
+                {recentPrompt && (
+                  <div className={styles.recentPromptSection}>
+                    <h4>Recent Query</h4>
+                    <p className={styles.recentPromptText}>"{recentPrompt}"</p>
+                  </div>
+                )}
                 {pointsOfInterest.filter(point => point.isAIRecommendation).length > 0 ? (
                   <div className={styles.neighborhoodsList}>
                     {pointsOfInterest.filter(point => point.isAIRecommendation).map((neighborhood, index) => (
@@ -339,7 +349,7 @@ export default function Home() {
                         onClick={() => setFocus(neighborhood.id)}
                       >
                         <div className={styles.neighborhoodHeader}>
-                          <h4>📍 {neighborhood.title} <span className={styles.clickHint}>🔍</span></h4>
+                          <h4>{neighborhood.title} <span className={styles.clickHint}>View on Map</span></h4>
                           {neighborhood.score && (
                             <span className={styles.scoreBadge}>
                               Score: {neighborhood.score}/5
@@ -350,12 +360,12 @@ export default function Home() {
                           <p className={styles.neighborhoodDescription}>{neighborhood.description}</p>
                           {neighborhood.density && (
                             <p className={styles.density}>
-                              <strong>👥 Population Density:</strong> {neighborhood.density.toFixed(0)} people/km²
+                              <strong>Population Density:</strong> {neighborhood.density.toFixed(0)} people/km²
                             </p>
                           )}
                           {neighborhood.reasons && neighborhood.reasons.length > 0 && (
                             <div className={styles.reasons}>
-                              <strong>🎯 Why Recommended:</strong>
+                              <strong>Why Recommended:</strong>
                               <ul>
                                 {neighborhood.reasons.map((reason, reasonIndex) => (
                                   <li key={reasonIndex}>{reason}</li>
@@ -369,7 +379,7 @@ export default function Home() {
                   </div>
                 ) : (
                   <div className={styles.noRecommendations}>
-                    <p>🏘️ No recommended neighborhoods yet</p>
+                    <p>No recommended neighborhoods yet</p>
                     <p>Go to the AI tab and ask a question to get neighborhood recommendations!</p>
                   </div>
                 )}

@@ -74,7 +74,7 @@ const PromptSelector = ({ onPromptSelect, className = '', style = {} }) => {
       {!selectedCategory ? (
         // Category Selection View
         <div className="category-selection">
-          <h3>🎯 Choose a Planning Category</h3>
+          <h3>Choose a Planning Category</h3>
           <p>Select a category to see related prompts, or type your own question below</p>
           
           {/* Custom Prompt Input */}

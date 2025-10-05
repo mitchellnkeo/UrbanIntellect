@@ -276,12 +276,12 @@ const UrbanPlanningChatbot = ({
       <div className="messages-container">
         {chatMessages.length === 0 && (
           <div className="welcome-message">
-            <h4>Welcome to Urban Planning AI! 🎯</h4>
+            <h4>Welcome to Urban Planning AI</h4>
             {!chatConnected ? (
               <div>
                 {isProduction && isLocalhost ? (
                   <div>
-                    <p>⚠️ AI service configuration issue</p>
+                    <p>AI service configuration issue</p>
                     <p>This deployed app is trying to connect to localhost, which won't work in production.</p>
                     <p>To fix this:</p>
                     <ul>
@@ -293,7 +293,7 @@ const UrbanPlanningChatbot = ({
                   </div>
                 ) : (
                   <div>
-                    <p>⚠️ AI service is not currently running</p>
+                    <p>AI service is not currently running</p>
                     <p>To use the AI features, you need to start the AI service:</p>
                     <ul>
                       <li>Navigate to the AI service directory</li>
