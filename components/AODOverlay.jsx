@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import aodData from "../assets/seattle_aod.json"; // adjust filename if needed
+import aodData from "../assets/aggregate_aod_data.json"; // adjust filename if needed
 
 const CircleMarker = dynamic(
   () => import("react-leaflet").then((mod) => mod.CircleMarker),
@@ -14,6 +14,7 @@ const Popup = dynamic(
 export const AODOverlay = () => {
   return aodData.features.map((feature, index) => {
     const { lat, lon, aod } = feature.properties;
+    const { coordinates } = feature.geometry;
 
     // Optional: scale circle size and color by AOD
     const radius = aod * 100; // adjust scaling to your liking
@@ -23,7 +24,7 @@ export const AODOverlay = () => {
     return (
       <CircleMarker
         key={index}
-        center={[lat, lon]}
+        center={[coordinates[1], coordinates[0]]}
         pathOptions={{ fillColor, color: fillColor, fillOpacity: 0.5, stroke: false }}
         radius={radius}
       >
@@ -32,7 +33,7 @@ export const AODOverlay = () => {
           <br />
           Value: {aod.toFixed(3)}
           <br />
-          Lat: {lat.toFixed(3)} | Lon: {lon.toFixed(3)}
+          Lat: {coordinates[1].toFixed(3)} | Lon: {coordinates[0].toFixed(3)}
         </Popup>
       </CircleMarker>
     );

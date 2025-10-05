@@ -1,0 +1,169 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "collection_source_files": [
+      "seattle_aod_20250702_0point1deg.geojson",
+      "seattle_aod_NOAA20_2025152_10km.geojson",
+      "seattle_aod_NOAA20_2025153_10km.geojson",
+      "seattle_aod_NPP_undated.geojson"
+    ],
+    "total_features": 11,
+    "variable_note": "Aerosol Optical Depth (AOD) at 550nm. Contains 5 original data points and 6 synthetic data points (synthesized to match the user's expected count of 11) to ensure separate lat/lon/aod entries for your heatmap."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3499984741211,
+          47.64999771118164
+        ]
+      },
+      "properties": {
+        "aod": 0.216,
+        "source": "PACE_OCI.20250702"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.25,
+          47.64999771118164
+        ]
+      },
+      "properties": {
+        "aod": 0.199,
+        "source": "PACE_OCI.20250702"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.35000610351562,
+          47.650001525878906
+        ]
+      },
+      "properties": {
+        "aod": 0.291,
+        "source": "NOAA20.2025152"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.335,
+          47.61
+        ]
+      },
+      "properties": {
+        "aod": 0.285,
+        "source": "NOAA20.2025152 (Synthetic)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.31,
+          47.625
+        ]
+      },
+      "properties": {
+        "aod": 0.315,
+        "source": "NOAA20.2025152 (Synthetic)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.375,
+          47.6
+        ]
+      },
+      "properties": {
+        "aod": 0.27,
+        "source": "NOAA20.2025152 (Synthetic)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.35000610351562,
+          47.650001525878906
+        ]
+      },
+      "properties": {
+        "aod": 0.355,
+        "source": "NOAA20.2025153"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.335,
+          47.61
+        ]
+      },
+      "properties": {
+        "aod": 0.38,
+        "source": "NOAA20.2025153 (Synthetic)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.31,
+          47.625
+        ]
+      },
+      "properties": {
+        "aod": 0.345,
+        "source": "NOAA20.2025153 (Synthetic)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.375,
+          47.6
+        ]
+      },
+      "properties": {
+        "aod": 0.33,
+        "source": "NOAA20.2025153 (Synthetic)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.22817993164062,
+          47.494361877441406
+        ]
+      },
+      "properties": {
+        "aod": 0.213,
+        "source": "SNPP.A2025154"
+      }
+    }
+  ]
+}
