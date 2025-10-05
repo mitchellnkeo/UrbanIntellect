@@ -144,6 +144,54 @@
   color: #b0bec5;
 }
 
+/* Chat Container Styles */
+.chatContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  background: #2a2a2a;
+  border-bottom: 1px solid #333;
+  border-radius: 8px 8px 0 0;
+}
+
+.backToPromptsButton, .chatButton {
+  background: #333;
+  border: 1px solid #555;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.backToPromptsButton:hover {
+  background: #555;
+  border-color: #4CAF50;
+}
+
+.chatButton {
+  background: #4CAF50;
+  border: 1px solid #4CAF50;
+  color: white;
+}
+
+.chatButton:hover {
+  background: #45a049;
+}
+
+.promptSelector {
+  height: 100% !important;
+  width: 100% !important;
+}
+
 /* Hover Popup Styles */
 .hoverPopup {
   pointer-events: none;

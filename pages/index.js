@@ -2,6 +2,7 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import MapC from "../components/map.js";
 import UrbanPlanningChatbot from "../components/UrbanPlanningChatbox.jsx";
+import PromptSelector from "../components/PromptSelector.jsx";
 import { useState } from "react";
 import Drawer from '@mui/material/Drawer';
 import FormGroup from '@mui/material/FormGroup';
@@ -18,6 +19,9 @@ export default function Home() {
   // Hover popup state
   const [hoveredPoint, setHoveredPoint] = useState(null);
   const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
+  
+  // AI tab state
+  const [showPromptSelector, setShowPromptSelector] = useState(true);
   
   // Chat state management - moved to parent to persist across tab switches
   const [chatMessages, setChatMessages] = useState([]);
@@ -47,6 +51,21 @@ export default function Home() {
 
   const handlePointLeave = () => {
     setHoveredPoint(null);
+  };
+
+  // Handle prompt selection
+  const handlePromptSelect = (prompt) => {
+    setChatInput(prompt);
+    setShowPromptSelector(false);
+  };
+
+  // Handle switching between prompt selector and chat
+  const handleShowPromptSelector = () => {
+    setShowPromptSelector(true);
+  };
+
+  const handleShowChat = () => {
+    setShowPromptSelector(false);
   };
   function setTab(tab){
     if(tab == activeTab){setActiveTab("none")}else{setActiveTab(tab)}
@@ -207,19 +226,43 @@ export default function Home() {
             )}
             {activeTab === "ai" && (
               <div className={styles.aiContent}>
-                <UrbanPlanningChatbot 
-                  style={{ height: '100%', width: '100%' }}
-                  className={styles.aiChatbot}
-                  messages={chatMessages}
-                  setMessages={setChatMessages}
-                  inputMessage={chatInput}
-                  setInputMessage={setChatInput}
-                  isLoading={chatLoading}
-                  setIsLoading={setChatLoading}
-                  isConnected={chatConnected}
-                  setIsConnected={setChatConnected}
-                  onRecommendationsReceived={updatePointsOfInterestFromAI}
-                />
+                {showPromptSelector ? (
+                  <PromptSelector 
+                    onPromptSelect={handlePromptSelect}
+                    style={{ height: '100%', width: '100%' }}
+                    className={styles.promptSelector}
+                  />
+                ) : (
+                  <div className={styles.chatContainer}>
+                    <div className={styles.chatHeader}>
+                      <button 
+                        className={styles.backToPromptsButton}
+                        onClick={handleShowPromptSelector}
+                      >
+                        ← Browse Prompts
+                      </button>
+                      <button 
+                        className={styles.chatButton}
+                        onClick={handleShowChat}
+                      >
+                        💬 Chat
+                      </button>
+                    </div>
+                    <UrbanPlanningChatbot 
+                      style={{ height: 'calc(100% - 50px)', width: '100%' }}
+                      className={styles.aiChatbot}
+                      messages={chatMessages}
+                      setMessages={setChatMessages}
+                      inputMessage={chatInput}
+                      setInputMessage={setChatInput}
+                      isLoading={chatLoading}
+                      setIsLoading={setChatLoading}
+                      isConnected={chatConnected}
+                      setIsConnected={setChatConnected}
+                      onRecommendationsReceived={updatePointsOfInterestFromAI}
+                    />
+                  </div>
+                )}
               </div>
             )}
           </div>

@@ -382,3 +382,148 @@ button{
     transform: translateY(-10px);
   }
 }
+
+/* Prompt Selector Styles */
+.prompt-selector {
+  background: #1a1a1a;
+  border-radius: 8px;
+  padding: 16px;
+  color: white;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.loading-message, .error-message {
+  text-align: center;
+  padding: 20px;
+  color: #888;
+}
+
+.category-selection h3 {
+  color: #4CAF50;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.category-selection p {
+  color: #ccc;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 12px;
+}
+
+.category-card {
+  background: #2a2a2a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.category-card:hover {
+  border-color: #4CAF50;
+  background: #333;
+  transform: translateY(-2px);
+}
+
+.category-card h4 {
+  margin: 0 0 8px 0;
+  color: #4CAF50;
+  font-size: 16px;
+}
+
+.category-card p {
+  margin: 0 0 8px 0;
+  color: #ccc;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.prompt-count {
+  color: #81c784;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.prompt-selection {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.prompt-header {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #333;
+}
+
+.back-button {
+  background: #333;
+  border: 1px solid #555;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  margin-bottom: 12px;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  background: #555;
+  border-color: #4CAF50;
+}
+
+.prompt-header h3 {
+  color: #4CAF50;
+  margin: 0 0 8px 0;
+  font-size: 18px;
+}
+
+.prompt-header p {
+  color: #ccc;
+  margin: 0;
+  font-size: 14px;
+}
+
+.prompts-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.prompt-card {
+  background: #2a2a2a;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.prompt-card:hover {
+  border-color: #4CAF50;
+  background: #333;
+  transform: translateX(4px);
+}
+
+.prompt-card p {
+  margin: 0 0 4px 0;
+  color: #e0e0e0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.select-hint {
+  color: #81c784;
+  font-size: 11px;
+  font-style: italic;
+}
