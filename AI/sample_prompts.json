@@ -56,6 +56,20 @@
       ]
     },
     {
+      "name": "🏘️🌫️ Comprehensive Analysis",
+      "description": "Population density + air quality analysis",
+      "prompts": [
+        "Give me a comprehensive urban planning analysis",
+        "What are the best areas for sustainable development?",
+        "Where should we prioritize environmental improvements?",
+        "Which areas combine good density with clean air?",
+        "What are the development opportunities considering air quality?",
+        "Where should we avoid development due to environmental concerns?",
+        "How do population density and air quality interact?",
+        "What are the environmental planning priorities?"
+      ]
+    },
+    {
       "name": "🎯 Planning Scenarios",
       "description": "Specific planning objectives",
       "prompts": [
@@ -69,7 +83,7 @@
       ]
     },
     {
-      "name": "🔍 Comparative Analysis",
+      "name": "Comparative Analysis",
       "description": "Neighborhood comparisons and risk assessment",
       "prompts": [
         "Compare the top 5 neighborhoods for development",
@@ -145,6 +159,8 @@
     "Show me the worst places for urban development",
     "Where should I focus on supporting vulnerable populations?",
     "Compare neighborhoods for development potential",
+    "Give me a comprehensive urban planning analysis",
+    "What are the best areas for sustainable development?",
     "Show me AI-powered development recommendations",
     "Help me understand Seattle's population density"
   ],
@@ -155,6 +171,8 @@
     "Show me the worst places for urban development",
     "Where should I focus on supporting vulnerable populations?",
     "Compare neighborhoods for development potential",
+    "Give me a comprehensive urban planning analysis",
+    "What are the best areas for sustainable development?",
     "Show me AI-powered development recommendations",
     "Help me understand Seattle's population density"
   ]
