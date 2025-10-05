@@ -235,9 +235,19 @@ export default function Home() {
       <main className={styles.main}>
         {focusobj && <Drawer open={draweropen} onClose={() => {setDrawer(false)}}>
           <div className={styles.drawercontainer}> 
-            <h1>{focusobj.title}</h1>
-            <p>{focusobj.description}</p>
-            {focusobj.isAIRecommendation && (
+            <div className={styles.drawerHeader}>
+              <h1>{focusobj.title}</h1>
+              <button 
+                className={styles.drawerCloseButton}
+                onClick={() => setDrawer(false)}
+                title="Close details"
+              >
+                ×
+              </button>
+            </div>
+            <div className={styles.drawerBody}>
+              <p>{focusobj.description}</p>
+              {focusobj.isAIRecommendation && (
               <div className={styles.aiRecommendationDetails}>
                 <h3>AI Analysis</h3>
                 <p><strong>Score:</strong> {focusobj.score}/5</p>
@@ -253,7 +263,8 @@ export default function Home() {
                   </div>
                 )}
               </div>
-            )}
+              )}
+            </div>
           </div>
         </Drawer>}
         <div className={styles.mapcontainer}>
@@ -424,9 +435,19 @@ export default function Home() {
             }}
           >
             <div className={styles.popupContent}>
-              <h3>{hoveredPoint.title}</h3>
-              <p className={styles.popupDescription}>{hoveredPoint.description}</p>
-              <div className={styles.popupDetails}>
+              <div className={styles.popupHeader}>
+                <h3>{hoveredPoint.title}</h3>
+                <button 
+                  className={styles.popupCloseButton}
+                  onClick={() => setHoveredPoint(null)}
+                  title="Close popup"
+                >
+                  ×
+                </button>
+              </div>
+              <div className={styles.popupBody}>
+                <p className={styles.popupDescription}>{hoveredPoint.description}</p>
+                <div className={styles.popupDetails}>
                 <p><strong>AI Score:</strong> {hoveredPoint.score}/5</p>
                 {hoveredPoint.density && (
                   <p><strong>Population Density:</strong> {hoveredPoint.density.toFixed(0)} people/km²</p>
@@ -441,6 +462,7 @@ export default function Home() {
                     </ul>
                   </div>
                 )}
+                </div>
               </div>
             </div>
           </div>
