@@ -18,16 +18,49 @@ export const PointOfInterestMarker = ({
   title,
   description,
   setFocus,
+  onPointHover,
+  onPointLeave,
+  isAIRecommendation = false,
+  score,
+  density,
+  reasons = []
 }) => {
+  // Different styling for AI recommendations
+  const markerColor = isAIRecommendation ? "#4CAF50" : "blue";
+  const markerRadius = isAIRecommendation ? 35 : 30;
+  
   return (
     <CircleMarker
       center={center}
-      pathOptions={{ color: "blue" }}
-      radius={30}
+      pathOptions={{ 
+        color: markerColor,
+        fillColor: markerColor,
+        fillOpacity: 0.6,
+        weight: 2
+      }}
+      radius={markerRadius}
       eventHandlers={{
         click: () => {
           setFocus(id);
         },
+        mouseover: (e) => {
+          if (onPointHover) {
+            onPointHover({
+              id,
+              title,
+              description,
+              isAIRecommendation,
+              score,
+              density,
+              reasons
+            }, e.originalEvent);
+          }
+        },
+        mouseout: () => {
+          if (onPointLeave) {
+            onPointLeave();
+          }
+        }
       }}
     >
       {/* <Popup>
