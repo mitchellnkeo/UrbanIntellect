@@ -152,6 +152,7 @@
   margin-left: 8px;
 }
 
+
 .scoreBadge {
   background: #4CAF50;
   color: white;
@@ -167,13 +168,13 @@
   gap: 8px;
 }
 
-.advice, .density {
+.advice, .density, .neighborhood {
   margin: 0;
   font-size: 14px;
   line-height: 1.4;
 }
 
-.advice strong, .density strong {
+.advice strong, .density strong, .neighborhood strong {
   color: #4CAF50;
 }
 
@@ -206,6 +207,79 @@
 .noRecommendations p {
   margin: 8px 0;
   font-size: 14px;
+}
+
+/* Neighborhood Cards Styles */
+.neighborhoodsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.neighborhoodCard {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 16px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.neighborhoodCard:hover {
+  border-color: #4CAF50;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
+  transform: translateY(-2px);
+}
+
+.neighborhoodCard:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(76, 175, 80, 0.3);
+}
+
+.neighborhoodCard::after {
+  content: "🔍 Click to view on map";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 10px;
+  color: #888;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.neighborhoodCard:hover::after {
+  opacity: 1;
+}
+
+.neighborhoodHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #333;
+}
+
+.neighborhoodHeader h4 {
+  margin: 0;
+  color: #4CAF50;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.neighborhoodContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.neighborhoodDescription {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #e0e0e0;
 }
 
 .drawercontainer{

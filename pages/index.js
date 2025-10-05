@@ -329,39 +329,35 @@ export default function Home() {
 
             {activeTab === "menu" && (
               <div className={styles.menuContent}>
-                <h3>🤖 AI Recommendations</h3>
-                {aiRecommendations.length > 0 ? (
-                  <div className={styles.recommendationsList}>
-                    {aiRecommendations.map((rec, index) => (
+                <h3>🏘️ Recommended Neighborhoods</h3>
+                {pointsOfInterest.filter(point => point.isAIRecommendation).length > 0 ? (
+                  <div className={styles.neighborhoodsList}>
+                    {pointsOfInterest.filter(point => point.isAIRecommendation).map((neighborhood, index) => (
                       <div 
-                        key={index} 
-                        className={styles.recommendationCard}
-                        onClick={() => handleRecommendationClick(rec, index)}
+                        key={neighborhood.id} 
+                        className={styles.neighborhoodCard}
+                        onClick={() => setFocus(neighborhood.id)}
                       >
-                        <div className={styles.recommendationHeader}>
-                          <h4>📍 {rec.neighborhood || rec.name || `Recommendation ${index + 1}`} <span className={styles.clickHint}>🔍</span></h4>
-                          {rec.score && (
+                        <div className={styles.neighborhoodHeader}>
+                          <h4>📍 {neighborhood.title} <span className={styles.clickHint}>🔍</span></h4>
+                          {neighborhood.score && (
                             <span className={styles.scoreBadge}>
-                              Score: {rec.score}/5
+                              Score: {neighborhood.score}/5
                             </span>
                           )}
                         </div>
-                        <div className={styles.recommendationContent}>
-                          {rec.development_advice && (
-                            <p className={styles.advice}>
-                              <strong>💡 Advice:</strong> {rec.development_advice}
-                            </p>
-                          )}
-                          {rec.density && (
+                        <div className={styles.neighborhoodContent}>
+                          <p className={styles.neighborhoodDescription}>{neighborhood.description}</p>
+                          {neighborhood.density && (
                             <p className={styles.density}>
-                              <strong>👥 Population Density:</strong> {rec.density.toFixed(0)} people/km²
+                              <strong>👥 Population Density:</strong> {neighborhood.density.toFixed(0)} people/km²
                             </p>
                           )}
-                          {rec.reasons && rec.reasons.length > 0 && (
+                          {neighborhood.reasons && neighborhood.reasons.length > 0 && (
                             <div className={styles.reasons}>
                               <strong>🎯 Why Recommended:</strong>
                               <ul>
-                                {rec.reasons.map((reason, reasonIndex) => (
+                                {neighborhood.reasons.map((reason, reasonIndex) => (
                                   <li key={reasonIndex}>{reason}</li>
                                 ))}
                               </ul>
@@ -373,8 +369,8 @@ export default function Home() {
                   </div>
                 ) : (
                   <div className={styles.noRecommendations}>
-                    <p>🤖 No AI recommendations yet</p>
-                    <p>Go to the AI tab and ask a question to get personalized recommendations!</p>
+                    <p>🏘️ No recommended neighborhoods yet</p>
+                    <p>Go to the AI tab and ask a question to get neighborhood recommendations!</p>
                   </div>
                 )}
               </div>
