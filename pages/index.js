@@ -25,24 +25,6 @@ export default function Home() {
   const [chatLoading, setChatLoading] = useState(false);
   const [chatConnected, setChatConnected] = useState(false);
   const [pointsOfInterest, setPointsOfInterest] = useState([
-    {
-      id: "1",
-      center: [47.6, -122.3321],
-      title: "Point of Interest 1",
-      description: "This is a point of interest",
-    },
-    {
-      id: "2",
-      center: [47.637, -122.3134],
-      title: "Point of Interest 2",
-      description: "This is another point of interest",
-    },
-    {
-      id: "3",
-      center: [47.64, -122.37],
-      title: "Point of Interest 3",
-      description: "This is another point of interest",
-    },
   ]);
 
   function setFocus(id){
