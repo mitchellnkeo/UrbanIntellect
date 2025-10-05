@@ -51,11 +51,11 @@ export const AirQualityOverlay = () => {
     return '#44ff44'; // Green for low traffic
   };
 
-  // Get traffic impact icon
-  const getTrafficIcon = (trafficImpact) => {
-    if (trafficImpact.includes('High')) return '🚗🚗🚗';
-    if (trafficImpact.includes('Moderate')) return '🚗🚗';
-    return '🚗';
+  // Get traffic impact level text
+  const getTrafficLevel = (trafficImpact) => {
+    if (trafficImpact.includes('High')) return 'HIGH';
+    if (trafficImpact.includes('Moderate')) return 'MODERATE';
+    return 'LOW';
   };
 
   return (
@@ -146,7 +146,7 @@ export const AirQualityOverlay = () => {
                     color: getTrafficColor(traffic_impact),
                     fontWeight: 'bold'
                   }}>
-                    {getTrafficIcon(traffic_impact)} {traffic_impact}
+                    {getTrafficLevel(traffic_impact)} - {traffic_impact}
                   </span>
                 </div>
                 
