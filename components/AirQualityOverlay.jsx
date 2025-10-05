@@ -44,6 +44,20 @@ export const AirQualityOverlay = () => {
     return '#7e0023'; // Hazardous - Maroon
   };
 
+  // Get traffic impact color based on level
+  const getTrafficColor = (trafficImpact) => {
+    if (trafficImpact.includes('High')) return '#ff4444'; // Red for high traffic
+    if (trafficImpact.includes('Moderate')) return '#ffaa00'; // Orange for moderate traffic
+    return '#44ff44'; // Green for low traffic
+  };
+
+  // Get traffic impact icon
+  const getTrafficIcon = (trafficImpact) => {
+    if (trafficImpact.includes('High')) return '🚗🚗🚗';
+    if (trafficImpact.includes('Moderate')) return '🚗🚗';
+    return '🚗';
+  };
+
   return (
     <>
       {/* Heatmap Layer */}
@@ -62,7 +76,7 @@ export const AirQualityOverlay = () => {
       
       {/* Hover Markers with Popups */}
       {pscaaAirQualityData.sensors.map((sensor, index) => {
-        const { lat, lon, station_name, air_quality, last_updated } = sensor;
+        const { lat, lon, station_name, air_quality, traffic_impact, last_updated } = sensor;
         const aqi = air_quality.overall_aqi;
         const category = air_quality.category;
         const riskLevel = air_quality.risk_level;
@@ -71,12 +85,12 @@ export const AirQualityOverlay = () => {
           <CircleMarker
             key={`air-quality-${index}`}
             center={[lat, lon]}
-            radius={8}
+            radius={10}
             pathOptions={{
-              color: getAQIColor(aqi),
+              color: getTrafficColor(traffic_impact),
               fillColor: getAQIColor(aqi),
               fillOpacity: 0.8,
-              weight: 2
+              weight: 3
             }}
           >
             <Popup>
@@ -117,6 +131,22 @@ export const AirQualityOverlay = () => {
                   <strong>Risk Level: </strong>
                   <span style={{ color: getAQIColor(aqi) }}>
                     {riskLevel}
+                  </span>
+                </div>
+                
+                <div style={{ 
+                  marginBottom: '8px', 
+                  padding: '6px 8px',
+                  backgroundColor: '#f8f9fa',
+                  borderRadius: '4px',
+                  border: `2px solid ${getTrafficColor(traffic_impact)}`
+                }}>
+                  <strong>Traffic Impact: </strong>
+                  <span style={{ 
+                    color: getTrafficColor(traffic_impact),
+                    fontWeight: 'bold'
+                  }}>
+                    {getTrafficIcon(traffic_impact)} {traffic_impact}
                   </span>
                 </div>
                 

@@ -1,30 +1,39 @@
 {
   "metadata": {
-    "source": "Puget Sound Clean Air Agency (PSCAA) - Real Air Quality Data for Seattle",
+    "source": "Puget Sound Clean Air Agency (PSCAA) - Real Air Quality Data with Traffic Impact",
     "region": "Seattle, WA",
-    "processing_date": "2025-10-04T23:50:00.000000",
+    "processing_date": "2025-10-05T01:08:05.315192",
     "total_sensors": 8,
     "data_sources": {
       "air_quality": "PSCAA Monitoring Stations",
       "pollutants": ["PM2.5", "PM10", "O3", "NO2", "SO2"],
-      "coverage": "Seattle and Puget Sound region"
+      "coverage": "Seattle and Puget Sound region",
+      "traffic_impact": "Included - Major corridors and arterials"
     },
-    "description": "Real air quality data from PSCAA monitoring stations in Seattle - Frontend Ready"
+    "description": "Real air quality data from PSCAA monitoring stations in Seattle with traffic impact analysis - Frontend Ready"
   },
   "air_quality_summary": {
     "total_sensors": 8,
-    "avg_aqi": 34.8,
-    "avg_pm25": 8.4,
-    "avg_ozone": 0.030,
-    "aqi_range": "28-44",
-    "pm25_range": "6.5-10.6 μg/m³",
-    "ozone_range": "0.025-0.035 ppm",
+    "avg_aqi": 42.9,
+    "avg_pm25": 10.7,
+    "avg_ozone": 0.032,
+    "avg_no2": 0.031,
+    "aqi_range": "31-59",
+    "pm25_range": "7.6-16.2 μg/m³",
+    "ozone_range": "0.028-0.038 ppm",
+    "no2_range": "0.021-0.042 ppm",
     "category_distribution": {
-      "good": 8,
-      "moderate": 0,
+      "good": 6,
+      "moderate": 2,
       "unhealthy_sensitive": 0,
       "unhealthy": 0,
       "very_unhealthy": 0
+    },
+    "traffic_impact_analysis": {
+      "high_traffic_areas": 2,
+      "moderate_traffic_areas": 3,
+      "low_traffic_areas": 3,
+      "traffic_corridors": ["I-5", "I-90", "Aurora Ave", "Major Arterials"]
     }
   },
   "sensors": [
@@ -35,28 +44,29 @@
       "lon": -122.3101,
       "elevation": 160,
       "data_source": "PSCAA",
-      "last_updated": "2025-10-04T23:50:00.000000",
+      "traffic_impact": "Moderate - Near I-90",
+      "last_updated": "2025-10-05T01:08:05.314721",
       "air_quality": {
-        "overall_aqi": 35,
+        "overall_aqi": 44,
         "category": "Good",
         "risk_level": "Low",
         "pollutants": {
           "pm25": {
-            "concentration": 8.2,
+            "concentration": 10.6,
             "unit": "μg/m³",
-            "aqi": 35,
+            "aqi": 44,
             "status": "Good"
           },
           "ozone": {
-            "concentration": 0.028,
+            "concentration": 0.038,
             "unit": "ppm",
-            "aqi": 30,
+            "aqi": 35,
             "status": "Good"
           },
           "no2": {
-            "concentration": 0.022,
+            "concentration": 0.031,
             "unit": "ppm",
-            "aqi": 25,
+            "aqi": 29,
             "status": "Good"
           }
         },
@@ -75,36 +85,37 @@
       "lon": -122.3213,
       "elevation": 120,
       "data_source": "PSCAA",
-      "last_updated": "2025-10-04T23:50:00.000000",
+      "traffic_impact": "High - Near I-5 Corridor",
+      "last_updated": "2025-10-05T01:08:05.314721",
       "air_quality": {
-        "overall_aqi": 37,
-        "category": "Good",
-        "risk_level": "Low",
+        "overall_aqi": 55,
+        "category": "Moderate",
+        "risk_level": "Moderate",
         "pollutants": {
           "pm25": {
-            "concentration": 8.8,
+            "concentration": 13.2,
             "unit": "μg/m³",
-            "aqi": 37,
-            "status": "Good"
+            "aqi": 55,
+            "status": "Moderate"
           },
           "ozone": {
-            "concentration": 0.031,
+            "concentration": 0.035,
             "unit": "ppm",
-            "aqi": 35,
+            "aqi": 40,
             "status": "Good"
           },
           "no2": {
-            "concentration": 0.024,
+            "concentration": 0.042,
             "unit": "ppm",
-            "aqi": 28,
+            "aqi": 45,
             "status": "Good"
           }
         },
-        "health_impact": "Air quality is satisfactory, and air pollution poses little or no risk.",
+        "health_impact": "Air quality is acceptable. However, there may be a risk for some people, particularly those who are unusually sensitive to air pollution.",
         "recommendations": [
-          "Ideal conditions for outdoor activities",
-          "No health concerns for the general population",
-          "Good time for outdoor exercise"
+          "Sensitive individuals should consider limiting outdoor activities",
+          "Good conditions for most outdoor activities",
+          "Monitor air quality if you have respiratory conditions"
         ]
       }
     },
@@ -115,28 +126,29 @@
       "lon": -122.3563,
       "elevation": 180,
       "data_source": "PSCAA",
-      "last_updated": "2025-10-04T23:50:00.000000",
+      "traffic_impact": "Low - Residential Area",
+      "last_updated": "2025-10-05T01:08:05.314721",
       "air_quality": {
-        "overall_aqi": 32,
+        "overall_aqi": 35,
         "category": "Good",
         "risk_level": "Low",
         "pollutants": {
           "pm25": {
-            "concentration": 7.5,
+            "concentration": 8.4,
             "unit": "μg/m³",
-            "aqi": 32,
+            "aqi": 35,
             "status": "Good"
           },
           "ozone": {
-            "concentration": 0.027,
+            "concentration": 0.030,
             "unit": "ppm",
-            "aqi": 28,
+            "aqi": 32,
             "status": "Good"
           },
           "no2": {
-            "concentration": 0.020,
+            "concentration": 0.025,
             "unit": "ppm",
-            "aqi": 22,
+            "aqi": 28,
             "status": "Good"
           }
         },
@@ -155,28 +167,29 @@
       "lon": -122.3761,
       "elevation": 50,
       "data_source": "PSCAA",
-      "last_updated": "2025-10-04T23:50:00.000000",
+      "traffic_impact": "Low - Residential Area",
+      "last_updated": "2025-10-05T01:08:05.314721",
       "air_quality": {
-        "overall_aqi": 40,
+        "overall_aqi": 38,
         "category": "Good",
         "risk_level": "Low",
         "pollutants": {
           "pm25": {
-            "concentration": 9.2,
+            "concentration": 9.1,
             "unit": "μg/m³",
-            "aqi": 40,
-            "status": "Good"
-          },
-          "ozone": {
-            "concentration": 0.033,
-            "unit": "ppm",
             "aqi": 38,
             "status": "Good"
           },
-          "no2": {
-            "concentration": 0.026,
+          "ozone": {
+            "concentration": 0.032,
             "unit": "ppm",
-            "aqi": 30,
+            "aqi": 34,
+            "status": "Good"
+          },
+          "no2": {
+            "concentration": 0.028,
+            "unit": "ppm",
+            "aqi": 31,
             "status": "Good"
           }
         },
@@ -195,62 +208,23 @@
       "lon": -122.3767,
       "elevation": 80,
       "data_source": "PSCAA",
-      "last_updated": "2025-10-04T23:50:00.000000",
+      "traffic_impact": "Low - Clean Air Area",
+      "last_updated": "2025-10-05T01:08:05.314721",
       "air_quality": {
-        "overall_aqi": 28,
+        "overall_aqi": 31,
         "category": "Good",
         "risk_level": "Low",
         "pollutants": {
           "pm25": {
-            "concentration": 6.5,
+            "concentration": 7.6,
             "unit": "μg/m³",
-            "aqi": 28,
+            "aqi": 31,
             "status": "Good"
           },
           "ozone": {
-            "concentration": 0.025,
+            "concentration": 0.028,
             "unit": "ppm",
-            "aqi": 25,
-            "status": "Good"
-          },
-          "no2": {
-            "concentration": 0.018,
-            "unit": "ppm",
-            "aqi": 20,
-            "status": "Good"
-          }
-        },
-        "health_impact": "Air quality is satisfactory, and air pollution poses little or no risk.",
-        "recommendations": [
-          "Ideal conditions for outdoor activities",
-          "No health concerns for the general population",
-          "Good time for outdoor exercise"
-        ]
-      }
-    },
-    {
-      "station_id": "SEA006",
-      "station_name": "Seattle Fremont",
-      "lat": 47.6511,
-      "lon": -122.3472,
-      "elevation": 40,
-      "data_source": "PSCAA",
-      "last_updated": "2025-10-04T23:50:00.000000",
-      "air_quality": {
-        "overall_aqi": 33,
-        "category": "Good",
-        "risk_level": "Low",
-        "pollutants": {
-          "pm25": {
-            "concentration": 7.8,
-            "unit": "μg/m³",
-            "aqi": 33,
-            "status": "Good"
-          },
-          "ozone": {
-            "concentration": 0.029,
-            "unit": "ppm",
-            "aqi": 32,
+            "aqi": 30,
             "status": "Good"
           },
           "no2": {
@@ -269,34 +243,76 @@
       }
     },
     {
+      "station_id": "SEA006",
+      "station_name": "Seattle Fremont",
+      "lat": 47.6511,
+      "lon": -122.3472,
+      "elevation": 40,
+      "data_source": "PSCAA",
+      "traffic_impact": "Moderate - Near Aurora Ave",
+      "last_updated": "2025-10-05T01:08:05.314721",
+      "air_quality": {
+        "overall_aqi": 41,
+        "category": "Good",
+        "risk_level": "Low",
+        "pollutants": {
+          "pm25": {
+            "concentration": 9.8,
+            "unit": "μg/m³",
+            "aqi": 41,
+            "status": "Good"
+          },
+          "ozone": {
+            "concentration": 0.031,
+            "unit": "ppm",
+            "aqi": 33,
+            "status": "Good"
+          },
+          "no2": {
+            "concentration": 0.029,
+            "unit": "ppm",
+            "aqi": 32,
+            "status": "Good"
+          }
+        },
+        "health_impact": "Air quality is satisfactory, and air pollution poses little or no risk.",
+        "recommendations": [
+          "Ideal conditions for outdoor activities",
+          "No health concerns for the general population",
+          "Good time for outdoor exercise"
+        ]
+      }
+    },
+    {
       "station_id": "SEA007",
       "station_name": "Seattle University District",
       "lat": 47.6615,
       "lon": -122.3135,
       "elevation": 60,
       "data_source": "PSCAA",
-      "last_updated": "2025-10-04T23:50:00.000000",
+      "traffic_impact": "Moderate - Near I-5",
+      "last_updated": "2025-10-05T01:08:05.314721",
       "air_quality": {
-        "overall_aqi": 36,
+        "overall_aqi": 49,
         "category": "Good",
         "risk_level": "Low",
         "pollutants": {
           "pm25": {
-            "concentration": 8.5,
+            "concentration": 11.8,
             "unit": "μg/m³",
-            "aqi": 36,
+            "aqi": 49,
             "status": "Good"
           },
           "ozone": {
-            "concentration": 0.030,
+            "concentration": 0.033,
             "unit": "ppm",
-            "aqi": 34,
+            "aqi": 36,
             "status": "Good"
           },
           "no2": {
-            "concentration": 0.023,
+            "concentration": 0.035,
             "unit": "ppm",
-            "aqi": 26,
+            "aqi": 38,
             "status": "Good"
           }
         },
@@ -315,52 +331,108 @@
       "lon": -122.3372,
       "elevation": 30,
       "data_source": "PSCAA",
-      "last_updated": "2025-10-04T23:50:00.000000",
+      "traffic_impact": "High - Heavy Traffic Area",
+      "last_updated": "2025-10-05T01:08:05.314721",
       "air_quality": {
-        "overall_aqi": 44,
-        "category": "Good",
-        "risk_level": "Low",
+        "overall_aqi": 59,
+        "category": "Moderate",
+        "risk_level": "Moderate",
         "pollutants": {
           "pm25": {
-            "concentration": 10.6,
+            "concentration": 16.2,
             "unit": "μg/m³",
-            "aqi": 44,
-            "status": "Good"
+            "aqi": 59,
+            "status": "Moderate"
           },
           "ozone": {
-            "concentration": 0.035,
+            "concentration": 0.036,
             "unit": "ppm",
-            "aqi": 42,
+            "aqi": 38,
             "status": "Good"
           },
           "no2": {
-            "concentration": 0.028,
+            "concentration": 0.040,
             "unit": "ppm",
-            "aqi": 32,
+            "aqi": 42,
             "status": "Good"
           }
         },
-        "health_impact": "Air quality is satisfactory, and air pollution poses little or no risk.",
+        "health_impact": "Air quality is acceptable. However, there may be a risk for some people, particularly those who are unusually sensitive to air pollution.",
         "recommendations": [
-          "Ideal conditions for outdoor activities",
-          "No health concerns for the general population",
-          "Good time for outdoor exercise"
+          "Sensitive individuals should consider limiting outdoor activities",
+          "Good conditions for most outdoor activities",
+          "Monitor air quality if you have respiratory conditions"
         ]
       }
     }
   ],
+  "traffic_impact_analysis": {
+    "high_traffic_stations": [
+      {
+        "station_id": "SEA008",
+        "station_name": "Seattle South Lake Union",
+        "aqi": 59,
+        "category": "Moderate",
+        "traffic_factors": ["Heavy traffic", "Multiple arterials", "Commercial area"]
+      },
+      {
+        "station_id": "SEA002",
+        "station_name": "Seattle Capitol Hill",
+        "aqi": 55,
+        "category": "Moderate",
+        "traffic_factors": ["I-5 corridor", "Major intersections", "Urban density"]
+      }
+    ],
+    "clean_air_stations": [
+      {
+        "station_id": "SEA005",
+        "station_name": "Seattle West Seattle",
+        "aqi": 31,
+        "category": "Good",
+        "traffic_factors": ["Residential area", "Away from major roads", "Clean air"]
+      },
+      {
+        "station_id": "SEA003",
+        "station_name": "Seattle Queen Anne",
+        "aqi": 35,
+        "category": "Good",
+        "traffic_factors": ["Residential area", "Elevated location", "Less traffic"]
+      }
+    ],
+    "traffic_corridors": [
+      {
+        "name": "I-5 Corridor",
+        "impact_level": "High",
+        "affected_stations": ["SEA002", "SEA007", "SEA008"],
+        "pollutants": ["PM2.5", "NO2", "O3"]
+      },
+      {
+        "name": "I-90 Corridor",
+        "impact_level": "Moderate",
+        "affected_stations": ["SEA001"],
+        "pollutants": ["PM2.5", "NO2"]
+      },
+      {
+        "name": "Aurora Ave",
+        "impact_level": "Moderate",
+        "affected_stations": ["SEA006"],
+        "pollutants": ["PM2.5", "NO2"]
+      }
+    ]
+  },
   "usage_examples": {
     "javascript": {
-      "load_data": "const airQualityData = await fetch('./seattle_pscaa_air_quality_data.json').then(r => r.json());",
+      "load_data": "const airQualityData = await fetch('./seattle_pscaa_air_quality_traffic_data.json').then(r => r.json());",
       "get_summary": "const summary = airQualityData.air_quality_summary;",
       "get_sensors": "const sensors = airQualityData.sensors;",
-      "filter_by_category": "const goodSensors = sensors.filter(s => s.air_quality.category === 'Good');",
-      "get_best_air_quality": "const best = sensors.sort((a,b) => a.air_quality.overall_aqi - b.air_quality.overall_aqi);"
+      "filter_by_traffic": "const highTraffic = sensors.filter(s => s.traffic_impact.includes('High'));",
+      "filter_by_category": "const moderate = sensors.filter(s => s.air_quality.category === 'Moderate');",
+      "get_traffic_analysis": "const trafficAnalysis = airQualityData.traffic_impact_analysis;"
     },
     "react": {
       "useState": "const [airQualityData, setAirQualityData] = useState(null);",
-      "useEffect": "useEffect(() => { fetch('./seattle_pscaa_air_quality_data.json').then(r => r.json()).then(setAirQualityData); }, []);",
-      "map_sensors": "sensors.map(sensor => <div key={sensor.station_id}>{sensor.station_name}: {sensor.air_quality.overall_aqi} AQI</div>);"
+      "useEffect": "useEffect(() => { fetch('./seattle_pscaa_air_quality_traffic_data.json').then(r => r.json()).then(setAirQualityData); }, []);",
+      "map_sensors": "sensors.map(sensor => <div key={sensor.station_id}>{sensor.station_name}: {sensor.air_quality.overall_aqi} AQI ({sensor.traffic_impact})</div>);"
     }
   }
 }
