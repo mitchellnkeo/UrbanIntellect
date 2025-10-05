@@ -355,14 +355,6 @@ export default function Home() {
                     />
                     <span className={styles.filterLabel}>Population Density</span>
                   </div>
-                  <div className={styles.filterItem} onClick={() => toggleFilters(2, !filters[1])}>
-                    <Checkbox 
-                      checked={filters[1]} 
-                      onChange={(event) => {toggleFilters(2 , event.target.checked)}} 
-                      className={styles.filterCheckbox}
-                    />
-                    <span className={styles.filterLabel}>AOD</span>
-                  </div>
                   <div className={styles.filterItem} onClick={() => toggleFilters(3, !filters[2])}>
                     <Checkbox 
                       checked={filters[2]} 
@@ -370,6 +362,14 @@ export default function Home() {
                       className={styles.filterCheckbox}
                     />
                     <span className={styles.filterLabel}>Air Quality</span>
+                  </div>
+                  <div className={styles.filterItem} onClick={() => toggleFilters(2, !filters[1])}>
+                    <Checkbox 
+                      checked={filters[1]} 
+                      onChange={(event) => {toggleFilters(2 , event.target.checked)}} 
+                      className={styles.filterCheckbox}
+                    />
+                    <span className={styles.filterLabel}>AOD</span>
                   </div>
                 </div>
               </div>
