@@ -20,6 +20,17 @@ export default function Home() {
   // Hover popup state
   const [hoveredPoint, setHoveredPoint] = useState(null);
   const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
+
+  // Reset AI recommendations from map
+  const handleResetAIRecommendations = () => {
+    setPointsOfInterest(prev => prev.filter(point => !point.isAIRecommendation));
+    setAiRecommendations([]);
+    if (focusobj?.isAIRecommendation) {
+      setFocusObj(null);
+      setFocusedPointOfInterest(null);
+      setDrawer(false);
+    }
+  };
   
   // AI tab state
   const [showPromptSelector, setShowPromptSelector] = useState(true);
@@ -276,6 +287,14 @@ export default function Home() {
           </div>
         </Drawer>}
         <div className={styles.mapcontainer}>
+          <button
+            type="button"
+            className={styles.mapResetButton}
+            onClick={handleResetAIRecommendations}
+            title="Clear AI recommendations"
+          >
+            Reset AI
+          </button>
           <MapC
             pointsOfInterest={pointsOfInterest}
             filters={filters}
