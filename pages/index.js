@@ -14,7 +14,7 @@ export default function Home() {
   const [focusedPointOfInterest, setFocusedPointOfInterest] = useState(null); //Now tracking focused poi by Center to push to map
   const [focusobj, setFocusObj] = useState(null)
   const [activeTab, setActiveTab] = useState("none"); // New state for tab management
-  const [filters, setFilters] = useState([0]);
+  const [filters, setFilters] = useState([0, 0]);
   const [draweropen, setDrawer] = useState(false);
   
   // Hover popup state
@@ -147,6 +147,10 @@ export default function Home() {
     if(filter == 1){
       if(value){setFilters(prev => prev.map((valuech, index) => index === 0 ? 1 : valuech));}
       if(!value){setFilters(prev => prev.map((valuech, index) => index === 0 ? 0 : valuech));}
+    }
+    if(filter == 2){
+      if(value){setFilters(prev => prev.map((valuech, index) => index === 1 ? 1 : valuech));}
+      if(!value){setFilters(prev => prev.map((valuech, index) => index === 1 ? 0 : valuech));}
     }
   }
 
@@ -285,6 +289,7 @@ export default function Home() {
                 <h3>Filter Options</h3>
                   <FormGroup>
                     <FormControlLabel control={<Checkbox checked={filters[0]} onChange={(event) => {toggleFilters(1 , event.target.checked)}} />} label="Population Density" />
+                    <FormControlLabel control={<Checkbox checked={filters[1]} onChange={(event) => {toggleFilters(2 , event.target.checked)}} />} label="AOD " />
   
                   </FormGroup>
               </div>
