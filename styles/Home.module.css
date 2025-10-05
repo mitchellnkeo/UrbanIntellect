@@ -100,11 +100,34 @@
   border-radius: 8px;
   padding: 16px;
   transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
 }
 
 .recommendationCard:hover {
   border-color: #4CAF50;
   box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
+  transform: translateY(-2px);
+}
+
+.recommendationCard:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(76, 175, 80, 0.3);
+}
+
+.recommendationCard::after {
+  content: "🔍 Click to view on map";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 10px;
+  color: #888;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.recommendationCard:hover::after {
+  opacity: 1;
 }
 
 .recommendationHeader {
@@ -121,6 +144,12 @@
   color: #4CAF50;
   font-size: 16px;
   font-weight: bold;
+}
+
+.clickHint {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-left: 8px;
 }
 
 .scoreBadge {

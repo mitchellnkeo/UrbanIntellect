@@ -96,6 +96,23 @@ export default function Home() {
     setShowPromptSelector(false);
   };
 
+  // Handle clicking on AI recommendations to zoom to them
+  const handleRecommendationClick = (recommendation, index) => {
+    // Find the corresponding point of interest
+    const correspondingPoint = pointsOfInterest.find(point => 
+      point.id === `ai-${recommendation.neighborhood_id || index}` ||
+      point.isAIRecommendation
+    );
+    
+    if (correspondingPoint) {
+      // Set focus to zoom to the point
+      setFocus(correspondingPoint.id);
+      
+      // Switch to map view (close any open tabs)
+      setActiveTab("none");
+    }
+  };
+
   // Function to send message to AI service
   const sendMessageToAI = async (message) => {
     const API_BASE_URL = process.env.REACT_APP_AI_API_URL || 'http://localhost:8000';
@@ -305,9 +322,13 @@ export default function Home() {
                 {aiRecommendations.length > 0 ? (
                   <div className={styles.recommendationsList}>
                     {aiRecommendations.map((rec, index) => (
-                      <div key={index} className={styles.recommendationCard}>
+                      <div 
+                        key={index} 
+                        className={styles.recommendationCard}
+                        onClick={() => handleRecommendationClick(rec, index)}
+                      >
                         <div className={styles.recommendationHeader}>
-                          <h4>📍 {rec.neighborhood || rec.name || `Recommendation ${index + 1}`}</h4>
+                          <h4>📍 {rec.neighborhood || rec.name || `Recommendation ${index + 1}`} <span className={styles.clickHint}>🔍</span></h4>
                           {rec.score && (
                             <span className={styles.scoreBadge}>
                               Score: {rec.score}/5
