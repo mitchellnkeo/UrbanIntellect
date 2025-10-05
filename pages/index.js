@@ -14,7 +14,7 @@ export default function Home() {
   const [focusedPointOfInterest, setFocusedPointOfInterest] = useState(null); //Now tracking focused poi by Center to push to map
   const [focusobj, setFocusObj] = useState(null)
   const [activeTab, setActiveTab] = useState("none"); // New state for tab management
-  const [filters, setFilters] = useState([0, 0]);
+  const [filters, setFilters] = useState([0, 0, 0]);
   const [draweropen, setDrawer] = useState(false);
   
   // Hover popup state
@@ -170,10 +170,14 @@ export default function Home() {
       if(value){setFilters(prev => prev.map((valuech, index) => index === 0 ? 1 : valuech));}
       if(!value){setFilters(prev => prev.map((valuech, index) => index === 0 ? 0 : valuech));}
     }
-    if(filter == 2){
-      if(value){setFilters(prev => prev.map((valuech, index) => index === 1 ? 1 : valuech));}
-      if(!value){setFilters(prev => prev.map((valuech, index) => index === 1 ? 0 : valuech));}
-    }
+     if(filter == 2){
+       if(value){setFilters(prev => prev.map((valuech, index) => index === 1 ? 1 : valuech));}
+       if(!value){setFilters(prev => prev.map((valuech, index) => index === 1 ? 0 : valuech));}
+     }
+     if(filter == 3){
+       if(value){setFilters(prev => prev.map((valuech, index) => index === 2 ? 1 : valuech));}
+       if(!value){setFilters(prev => prev.map((valuech, index) => index === 2 ? 0 : valuech));}
+     }
   }
 
   // Function to convert AI recommendations to points of interest
@@ -305,29 +309,29 @@ export default function Home() {
           <div className={styles.focuscontent}>
             {activeTab === "none" && (
               <>
-                {pointsOfInterest.map((p) => (
-                  <div
+            {pointsOfInterest.map((p) => (
+              <div
                     key={p.id}
-                    className={`${styles.poiitem} ${
+                className={`${styles.poiitem} ${
                       p.center === focusedPointOfInterest ? styles.focusedPoiitem : ""
-                    }`}
+                }`}
                     onClick={() => {setFocus(p.id)}} 
-                  >
-                    <p>{p.title}</p>
-                    <p>{p.description}</p>
-                  </div>
-                ))}
+              >
+                <p>{p.title}</p>
+                <p>{p.description}</p>
+              </div>
+            ))}
               </>
             )}
 
             {activeTab === "filters" && (
               <div className={styles.menuContent}>
                 <h3>Filter Options</h3>
-                  <FormGroup>
-                    <FormControlLabel control={<Checkbox checked={filters[0]} onChange={(event) => {toggleFilters(1 , event.target.checked)}} />} label="Population Density" />
-                    <FormControlLabel control={<Checkbox checked={filters[1]} onChange={(event) => {toggleFilters(2 , event.target.checked)}} />} label="AOD " />
-  
-                  </FormGroup>
+                    <FormGroup>
+                      <FormControlLabel control={<Checkbox checked={filters[0]} onChange={(event) => {toggleFilters(1 , event.target.checked)}} />} label="Population Density" />
+                      <FormControlLabel control={<Checkbox checked={filters[1]} onChange={(event) => {toggleFilters(2 , event.target.checked)}} />} label="AOD" />
+                      <FormControlLabel control={<Checkbox checked={filters[2]} onChange={(event) => {toggleFilters(3 , event.target.checked)}} />} label="Air Quality" />
+                    </FormGroup>
               </div>
             )}
 

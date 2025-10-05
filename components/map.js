@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { PointOfInterestMarker } from "./PointOfInterestMarker";
 import { PopulationOverlay } from "./PopulationOverlay";
 import { AODOverlay } from "./AODOverlay";
+import { AirQualityOverlay } from "./AirQualityOverlay";
 
 // Dynamically import all react-leaflet components
 const AutoPopup = dynamic(() => import("./AutoPopup"), { ssr: false });
@@ -74,6 +75,7 @@ export default function MapC({ pointsOfInterest, filters, focusedPointOfInterest
         ))}
         {filters[0] &&<PopulationOverlay />}
         {filters[1] && <AODOverlay />}
+        {filters[2] && <AirQualityOverlay />}
       </MapContainer>
     </div>
   );
