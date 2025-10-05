@@ -2,6 +2,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useMap } from 'react-leaflet';
+import populationDensityData from "../assets/seattle_population_density.json";
+
 
 // Dynamically import React-Leaflet components that rely on the DOM
 const CircleMarker = dynamic(

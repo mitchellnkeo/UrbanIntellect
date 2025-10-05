@@ -14,7 +14,7 @@ export default function Home() {
   const [focusedPointOfInterest, setFocusedPointOfInterest] = useState(null); //Now tracking focused poi by Center to push to map
   const [focusobj, setFocusObj] = useState(null)
   const [activeTab, setActiveTab] = useState("filters"); // New state for tab management - default to filters
-  const [filters, setFilters] = useState([0, 0, 0]);
+  const [filters, setFilters] = useState([0, 0, 0, 0, 0]);
   const [draweropen, setDrawer] = useState(false);
   
   // Hover popup state
@@ -195,18 +195,26 @@ export default function Home() {
     // console.log(filters)
   }
   function toggleFilters(filter, value){
-    if(filter == 1){
+    if(filter == 1){ //Population Density
       if(value){setFilters(prev => prev.map((valuech, index) => index === 0 ? 1 : valuech));}
       if(!value){setFilters(prev => prev.map((valuech, index) => index === 0 ? 0 : valuech));}
     }
-     if(filter == 2){
+    if(filter == 2){ //Air quality
        if(value){setFilters(prev => prev.map((valuech, index) => index === 1 ? 1 : valuech));}
        if(!value){setFilters(prev => prev.map((valuech, index) => index === 1 ? 0 : valuech));}
      }
-     if(filter == 3){
-       if(value){setFilters(prev => prev.map((valuech, index) => index === 2 ? 1 : valuech));}
-       if(!value){setFilters(prev => prev.map((valuech, index) => index === 2 ? 0 : valuech));}
-     }
+    if(filter == 3){ //Water Quality
+      if(value){setFilters(prev => prev.map((valuech, index) => index === 2 ? 1 : valuech));}
+      if(!value){setFilters(prev => prev.map((valuech, index) => index === 2 ? 0 : valuech));}
+    }
+    if(filter == 4){ //Water Quality
+      if(value){setFilters(prev => prev.map((valuech, index) => index === 3 ? 1 : valuech));}
+      if(!value){setFilters(prev => prev.map((valuech, index) => index === 3 ? 0 : valuech));}
+    }
+    if(filter == 5){ //Water Quality
+      if(value){setFilters(prev => prev.map((valuech, index) => index === 4 ? 1 : valuech));}
+      if(!value){setFilters(prev => prev.map((valuech, index) => index === 4 ? 0 : valuech));}
+    }
   }
 
   // Function to convert AI recommendations to points of interest
@@ -373,21 +381,37 @@ export default function Home() {
                     />
                     <span className={styles.filterLabel}>Population Density</span>
                   </div>
-                  <div className={styles.filterItem} onClick={() => toggleFilters(3, !filters[2])}>
-                    <Checkbox 
-                      checked={filters[2]} 
-                      onChange={(event) => {toggleFilters(3 , event.target.checked)}} 
-                      className={styles.filterCheckbox}
-                    />
-                    <span className={styles.filterLabel}>Air Quality</span>
-                  </div>
                   <div className={styles.filterItem} onClick={() => toggleFilters(2, !filters[1])}>
                     <Checkbox 
                       checked={filters[1]} 
                       onChange={(event) => {toggleFilters(2 , event.target.checked)}} 
                       className={styles.filterCheckbox}
                     />
-                    <span className={styles.filterLabel}>AOD</span>
+                    <span className={styles.filterLabel}>Air Quality</span>
+                  </div>
+                  <div className={styles.filterItem} onClick={() => toggleFilters(3, !filters[2])}>
+                    <Checkbox 
+                      checked={filters[2]} 
+                      onChange={(event) => {toggleFilters(3 , event.target.checked)}} 
+                      className={styles.filterCheckbox}
+                    />
+                    <span className={styles.filterLabel}>Water Quality</span>
+                  </div>
+                  <div className={styles.filterItem} onClick={() => toggleFilters(4, !filters[3])}>
+                    <Checkbox 
+                      checked={filters[3]} 
+                      onChange={(event) => {toggleFilters(4 , event.target.checked)}} 
+                      className={styles.filterCheckbox}
+                    />
+                    <span className={styles.filterLabel}>Public Transportation</span>
+                  </div>
+                  <div className={styles.filterItem} onClick={() => toggleFilters(5, !filters[4])}>
+                    <Checkbox 
+                      checked={filters[4]} 
+                      onChange={(event) => {toggleFilters(5 , event.target.checked)}} 
+                      className={styles.filterCheckbox}
+                    />
+                    <span className={styles.filterLabel}>Flood Risk</span>
                   </div>
                 </div>
               </div>

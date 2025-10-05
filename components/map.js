@@ -74,8 +74,7 @@ export default function MapC({ pointsOfInterest, filters, focusedPointOfInterest
           />
         ))}
         {filters[0] &&<PopulationOverlay />}
-        {filters[1] && <AODOverlay />}
-        {filters[2] && <AirQualityOverlay />}
+        {filters[1] && <AirQualityOverlay />}
       </MapContainer>
     </div>
   );
