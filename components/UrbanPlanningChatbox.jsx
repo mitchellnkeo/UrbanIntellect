@@ -8,12 +8,32 @@ const UrbanPlanningChatbot = ({
   maxMessages = 50,
   autoScroll = true,
   showConfidence = true,
-  apiUrl = null
+  apiUrl = null,
+  // Props for persistent state
+  messages = null,
+  setMessages = null,
+  inputMessage = null,
+  setInputMessage = null,
+  isLoading = null,
+  setIsLoading = null,
+  isConnected = null,
+  setIsConnected = null
 }) => {
-  const [messages, setMessages] = useState([]);
-  const [inputMessage, setInputMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [isConnected, setIsConnected] = useState(false);
+  // Use props if provided, otherwise fall back to internal state
+  const [internalMessages, setInternalMessages] = useState([]);
+  const [internalInputMessage, setInternalInputMessage] = useState('');
+  const [internalIsLoading, setInternalIsLoading] = useState(false);
+  const [internalIsConnected, setInternalIsConnected] = useState(false);
+  
+  // Use external state if provided, otherwise use internal state
+  const chatMessages = messages !== null ? messages : internalMessages;
+  const setChatMessages = setMessages !== null ? setMessages : setInternalMessages;
+  const chatInput = inputMessage !== null ? inputMessage : internalInputMessage;
+  const setChatInput = setInputMessage !== null ? setInputMessage : setInternalInputMessage;
+  const chatLoading = isLoading !== null ? isLoading : internalIsLoading;
+  const setChatLoading = setIsLoading !== null ? setIsLoading : setInternalIsLoading;
+  const chatConnected = isConnected !== null ? isConnected : internalIsConnected;
+  const setChatConnected = setIsConnected !== null ? setIsConnected : setInternalIsConnected;
 
   const API_BASE_URL = apiUrl || process.env.REACT_APP_AI_API_URL || 'http://localhost:8000';
   
@@ -34,39 +54,39 @@ const UrbanPlanningChatbot = ({
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
       }
     }
-  }, [messages, autoScroll]);
+  }, [chatMessages, autoScroll]);
 
   // Limit messages to maxMessages
   useEffect(() => {
-    if (messages.length > maxMessages) {
-      setMessages(prev => prev.slice(-maxMessages));
+    if (chatMessages.length > maxMessages) {
+      setChatMessages(prev => prev.slice(-maxMessages));
     }
-  }, [messages, maxMessages]);
+  }, [chatMessages, maxMessages, setChatMessages]);
 
   const checkConnection = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/health`, { timeout: 5000 });
-      setIsConnected(response.data.status === 'healthy');
+      setChatConnected(response.data.status === 'healthy');
     } catch (error) {
       console.log('AI service not available:', error.message);
-      setIsConnected(false);
+      setChatConnected(false);
     }
   };
 
   const sendMessage = async () => {
-    if (!inputMessage.trim() || isLoading) return;
+    if (!chatInput.trim() || chatLoading) return;
 
     const userMessage = {
       id: Date.now(),
       type: 'user',
-      text: inputMessage,
+      text: chatInput,
       timestamp: new Date().toISOString()
     };
 
-    setMessages(prev => [...prev, userMessage]);
-    const currentMessage = inputMessage;
-    setInputMessage('');
-    setIsLoading(true);
+    setChatMessages(prev => [...prev, userMessage]);
+    const currentMessage = chatInput;
+    setChatInput('');
+    setChatLoading(true);
 
     try {
       const response = await axios.post(`${API_BASE_URL}/chat`, {
@@ -83,7 +103,7 @@ const UrbanPlanningChatbot = ({
         timestamp: response.data.timestamp
       };
 
-      setMessages(prev => [...prev, aiMessage]);
+      setChatMessages(prev => [...prev, aiMessage]);
     } catch (error) {
       console.error('Chat error:', error);
       let errorText = 'Sorry, I encountered an error. Please try again.';
@@ -108,9 +128,9 @@ const UrbanPlanningChatbot = ({
         text: errorText,
         timestamp: new Date().toISOString()
       };
-      setMessages(prev => [...prev, errorMessage]);
+      setChatMessages(prev => [...prev, errorMessage]);
     } finally {
-      setIsLoading(false);
+      setChatLoading(false);
     }
   };
 
@@ -125,7 +145,7 @@ const UrbanPlanningChatbot = ({
   const clearHistory = async () => {
     try {
       await axios.delete(`${API_BASE_URL}/chat/history`);
-      setMessages([]);
+      setChatMessages([]);
     } catch (error) {
       console.error('Clear history error:', error);
     }
@@ -165,10 +185,10 @@ const UrbanPlanningChatbot = ({
 
       {/* Messages */}
       <div className="messages-container">
-        {messages.length === 0 && (
+        {chatMessages.length === 0 && (
           <div className="welcome-message">
             <h4>Welcome to Urban Planning AI! 🎯</h4>
-            {!isConnected ? (
+            {!chatConnected ? (
               <div>
                 {isProduction && isLocalhost ? (
                   <div>
@@ -211,7 +231,7 @@ const UrbanPlanningChatbot = ({
           </div>
         )}
         
-        {messages.map((message) => (
+        {chatMessages.map((message) => (
           <div key={message.id} className={`message ${message.type}`}>
             <div className="message-content">
               <p>{message.text}</p>
@@ -256,7 +276,7 @@ const UrbanPlanningChatbot = ({
           </div>
         ))}
         
-        {isLoading && (
+        {chatLoading && (
           <div className="message ai">
             <div className="message-content">
               <div className="typing-indicator">
@@ -273,18 +293,18 @@ const UrbanPlanningChatbot = ({
       <div className="input-container">
         <input
           type="text"
-          value={inputMessage}
-          onChange={(e) => setInputMessage(e.target.value)}
+          value={chatInput}
+          onChange={(e) => setChatInput(e.target.value)}
           onKeyPress={handleKeyPress}
           placeholder={placeholder}
-          disabled={!isConnected || isLoading}
+          disabled={!chatConnected || chatLoading}
         />
         <button 
           onClick={sendMessage} 
-          disabled={!isConnected || isLoading || !inputMessage.trim()}
+          disabled={!chatConnected || chatLoading || !chatInput.trim()}
           className="send-button"
         >
-          {isLoading ? '⏳' : '📤'}
+          {chatLoading ? '⏳' : '📤'}
         </button>
       </div>
     </div>

@@ -14,6 +14,12 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState("none"); // New state for tab management
   const [filters, setFilters] = useState([0]);
   const [draweropen, setDrawer] = useState(false);
+  
+  // Chat state management - moved to parent to persist across tab switches
+  const [chatMessages, setChatMessages] = useState([]);
+  const [chatInput, setChatInput] = useState('');
+  const [chatLoading, setChatLoading] = useState(false);
+  const [chatConnected, setChatConnected] = useState(false);
   const [pointsOfInterest, setPointsOfInterest] = useState([
     {
       id: "1",
@@ -134,6 +140,14 @@ export default function Home() {
                 <UrbanPlanningChatbot 
                   style={{ height: '100%', width: '100%' }}
                   className={styles.aiChatbot}
+                  messages={chatMessages}
+                  setMessages={setChatMessages}
+                  inputMessage={chatInput}
+                  setInputMessage={setChatInput}
+                  isLoading={chatLoading}
+                  setIsLoading={setChatLoading}
+                  isConnected={chatConnected}
+                  setIsConnected={setChatConnected}
                 />
               </div>
             )}
