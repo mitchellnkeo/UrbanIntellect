@@ -40,8 +40,10 @@ export const PointOfInterestMarker = ({
       }}
       radius={markerRadius}
       eventHandlers={{
-        click: () => {
-          setFocus(id);
+        click: (e) => {
+          // pass clientX so drawer can size to stop before the clicked POI
+          const clientX = e.originalEvent?.clientX ?? null;
+          setFocus(id, clientX);
         },
         mouseover: (e) => {
           if (onPointHover) {

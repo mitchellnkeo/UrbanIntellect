@@ -45,10 +45,28 @@ export default function Home() {
   const [pointsOfInterest, setPointsOfInterest] = useState([
   ]);
 
-  function setFocus(id){
+  const [drawerWidthPx, setDrawerWidthPx] = useState(420);
+
+  function setFocus(id, clickClientX = null){
     let newfocus = pointsOfInterest.find(pointsOfInterest => pointsOfInterest.id === id);
     setFocusedPointOfInterest(newfocus.center);
     setFocusObj(newfocus);
+
+    // Calculate drawer width so it stops to the left of the clicked location
+    try {
+      const viewportWidth = typeof window !== 'undefined' ? window.innerWidth : 1200;
+      // If we have a click X position, size drawer to stop before that point.
+      // Add small left margin for content (min 280px, max 60% viewport)
+      const maxWidth = Math.floor(viewportWidth * 0.6);
+      const targetWidth = clickClientX !== null
+        ? Math.max(280, Math.min(clickClientX - 24, maxWidth))
+        : Math.floor(viewportWidth * 0.35);
+      setDrawerWidthPx(targetWidth);
+    } catch (e) {
+      // Fallback width
+      setDrawerWidthPx(420);
+    }
+
     setDrawer(true);
   }
 
@@ -253,7 +271,7 @@ export default function Home() {
 
       <main className={styles.main}>
         {focusobj && <Drawer open={draweropen} onClose={() => {setDrawer(false)}}>
-          <div className={styles.drawercontainer}> 
+          <div className={styles.drawercontainer} style={{['--drawer-width']: `${drawerWidthPx}px`}}> 
             <div className={styles.drawerHeader}>
               <h1>{focusobj.title}</h1>
               <button 
