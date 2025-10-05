@@ -15,6 +15,10 @@ export default function Home() {
   const [filters, setFilters] = useState([0]);
   const [draweropen, setDrawer] = useState(false);
   
+  // Hover popup state
+  const [hoveredPoint, setHoveredPoint] = useState(null);
+  const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
+  
   // Chat state management - moved to parent to persist across tab switches
   const [chatMessages, setChatMessages] = useState([]);
   const [chatInput, setChatInput] = useState('');
@@ -47,6 +51,21 @@ export default function Home() {
     setFocusObj(newfocus);
     setDrawer(true);
   }
+
+  // Handle hover events for popup
+  const handlePointHover = (point, event) => {
+    if (point.isAIRecommendation) {
+      setHoveredPoint(point);
+      setPopupPosition({
+        x: event.clientX || event.pageX,
+        y: event.clientY || event.pageY
+      });
+    }
+  };
+
+  const handlePointLeave = () => {
+    setHoveredPoint(null);
+  };
   function setTab(tab){
     if(tab == activeTab){setActiveTab("none")}else{setActiveTab(tab)}
     console.log(filters)
@@ -145,6 +164,8 @@ export default function Home() {
             filters={filters}
             focusedPointOfInterest={focusedPointOfInterest}
             setFocus={setFocus}
+            onPointHover={handlePointHover}
+            onPointLeave={handlePointLeave}
           />
         </div>
         <div className={styles.focuscontainer}>
@@ -221,6 +242,40 @@ export default function Home() {
             )}
           </div>
         </div>
+        
+        {/* Hover Popup for AI Recommendations */}
+        {hoveredPoint && (
+          <div 
+            className={styles.hoverPopup}
+            style={{
+              position: 'fixed',
+              left: popupPosition.x + 10,
+              top: popupPosition.y - 10,
+              zIndex: 1000
+            }}
+          >
+            <div className={styles.popupContent}>
+              <h3>{hoveredPoint.title}</h3>
+              <p className={styles.popupDescription}>{hoveredPoint.description}</p>
+              <div className={styles.popupDetails}>
+                <p><strong>AI Score:</strong> {hoveredPoint.score}/5</p>
+                {hoveredPoint.density && (
+                  <p><strong>Population Density:</strong> {hoveredPoint.density.toFixed(0)} people/km²</p>
+                )}
+                {hoveredPoint.reasons && hoveredPoint.reasons.length > 0 && (
+                  <div className={styles.popupReasons}>
+                    <strong>Why Recommended:</strong>
+                    <ul>
+                      {hoveredPoint.reasons.slice(0, 3).map((reason, index) => (
+                        <li key={index}>{reason}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
