@@ -316,7 +316,7 @@ export default function Home() {
               className={`${styles.focusheadingtext} ${activeTab === "menu" ? styles.activeTab : ""}`}
               onClick={() => setTab("menu")}
             >
-              Menu
+              POIs
             </button>
             <button 
               className={`${styles.focusheadingtext} ${activeTab === "ai" ? styles.activeTab : ""}`}
