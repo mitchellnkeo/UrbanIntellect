@@ -1,4 +1,4 @@
-Disclaimer: This project used third-party AI to assist with code generation.
+Attirubtion: This project used third-party AI to assist with code generation. Associated repo https://github.com/mitchellnkeo/seattle-data-prep also used AI to assist with code generation and debugging.
 
 This is a starter template for [Learn Next.js](https://nextjs.org/learn).
 
