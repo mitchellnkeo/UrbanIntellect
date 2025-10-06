@@ -378,6 +378,7 @@ export default function Home() {
                       checked={filters[0]} 
                       onChange={(event) => {toggleFilters(1 , event.target.checked)}} 
                       className={styles.filterCheckbox}
+                      aria-label="Population Density"
                     />
                     <span className={styles.filterLabel}>Population Density</span>
                   </div>
@@ -386,6 +387,7 @@ export default function Home() {
                       checked={filters[1]} 
                       onChange={(event) => {toggleFilters(2 , event.target.checked)}} 
                       className={styles.filterCheckbox}
+                      aria-label="Air Quality"
                     />
                     <span className={styles.filterLabel}>Air Quality</span>
                   </div>
@@ -394,6 +396,7 @@ export default function Home() {
                       checked={filters[2]} 
                       onChange={(event) => {toggleFilters(3 , event.target.checked)}} 
                       className={styles.filterCheckbox}
+                      aria-label="Water Quality"
                     />
                     <span className={styles.filterLabel}>Water Quality</span>
                   </div>
@@ -402,6 +405,7 @@ export default function Home() {
                       checked={filters[3]} 
                       onChange={(event) => {toggleFilters(4 , event.target.checked)}} 
                       className={styles.filterCheckbox}
+                      aria-label="Public Transportation"
                     />
                     <span className={styles.filterLabel}>Public Transportation</span>
                   </div>
@@ -410,6 +414,7 @@ export default function Home() {
                       checked={filters[4]} 
                       onChange={(event) => {toggleFilters(5 , event.target.checked)}} 
                       className={styles.filterCheckbox}
+                      aria-label="Flood Risk"
                     />
                     <span className={styles.filterLabel}>Flood Risk</span>
                   </div>

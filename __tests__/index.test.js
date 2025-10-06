@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import Home from '../pages/index'
 
 // Mock the Map component and its sub-components to prevent Leaflet errors in the test environment
@@ -13,9 +13,9 @@ jest.mock('../components/map.js', () => {
   return MapC
 })
 
-// Mock the PromptSelector as it also seems to trigger async state updates
+// Mock the PromptSelector
 jest.mock('../components/PromptSelector.jsx', () => {
-  const PromptSelector = () => <div>Prompt Selector</div>
+  const PromptSelector = () => <div data-testid="prompt-selector">Prompt Selector</div>
   PromptSelector.displayName = 'PromptSelector'
   return PromptSelector
 })
@@ -27,11 +27,12 @@ jest.mock('../components/UrbanPlanningChatbox.jsx', () => {
   return UrbanPlanningChatbot
 })
 
-// Mock MUI Drawer/FormGroup/FormControlLabel/Checkbox/axios if necessary, using simple divs for test rendering
-jest.mock('@mui/material/Drawer', () => (props) => <div>{props.children}</div>)
+// Mock MUI Drawer/FormGroup/FormControlLabel/Checkbox/axios using simple divs for test rendering
+jest.mock('@mui/material/Drawer', () => (props) => <div data-testid="drawer">{props.children}</div>)
 jest.mock('@mui/material/FormGroup', () => (props) => <div>{props.children}</div>)
 jest.mock('@mui/material/FormControlLabel', () => (props) => <div>{props.children}</div>)
-jest.mock('@mui/material/Checkbox', () => () => <input data-testid="checkbox" type="checkbox" />)
+// Mock Checkbox as a simple input to make testing library find the checkable item
+jest.mock('@mui/material/Checkbox', () => (props) => <input data-testid="checkbox" type="checkbox" checked={props.checked} onChange={props.onChange} aria-label={props['aria-label']} />)
 jest.mock('axios', () => ({
   get: jest.fn(() => Promise.resolve({ data: {} })),
 }))
@@ -42,8 +43,7 @@ describe('Home Page', () => {
   it('renders filter tabs', () => {
     render(<Home />)
     expect(screen.getByText('Filters')).toBeInTheDocument()
-    // FIX 1: Change 'Menu' to 'POIs'
-    expect(screen.getByText('POIs')).toBeInTheDocument() 
+    expect(screen.getByText('POIs')).toBeInTheDocument()
     expect(screen.getByText('AI')).toBeInTheDocument()
   })
 
@@ -53,34 +53,54 @@ describe('Home Page', () => {
     expect(screen.getByText('Filter Options')).toBeInTheDocument()
     expect(screen.getByText('Population Density')).toBeInTheDocument()
     expect(screen.getByText('Air Quality')).toBeInTheDocument()
-    expect(screen.getByText('AOD')).toBeInTheDocument()
-    expect(screen.queryAllByTestId('checkbox').length).toBe(3)
+    expect(screen.getByText('Water Quality')).toBeInTheDocument()
+    expect(screen.getByText('Public Transportation')).toBeInTheDocument()
+    expect(screen.getByText('Flood Risk')).toBeInTheDocument()
+
+    // Confirms all 5 filter options are present
+    expect(screen.queryAllByTestId('checkbox').length).toBe(5)
   })
 
-  // Test Case 3: Switches to POIs tab and shows the 'No recommended' message (inferred logic)
-  it('switches to POIs tab and shows POI content', () => {
+  // Test Case 3: Switches to AI tab and shows Prompt Selector, then POIs tab and shows 'No recommended' message
+  it('switches to AI tab and shows prompt selector, then POIs tab and shows no recommendations message', () => {
     render(<Home />)
 
-    // FIX 2: Change 'Menu' to 'POIs'
-    const poisTab = screen.getByText('POIs') 
-    fireEvent.click(poisTab)
-
-    // Assuming the POIs tab shows a message when no POI is selected/focused
-    // The previous error message for this test mentioned 'No recommended neighborhoods yet', 
-    // which implies it was testing the AI tab, or the logic for POIs/AI is intertwined.
-    // Based on the output, I am inferring the test meant to check the POIs tab. 
-    // If the error message was correct, the POIs tab content must have changed, 
-    // but without the full implementation, I'll rely on the POIs label fix.
-    
-    // Check if the content for the POIs tab is displayed (assuming it renders PromptSelector/Chatbot)
-    // NOTE: If this test was actually meant for the 'AI' tab, the label should be 'AI' not 'POIs'.
-    // Given the test title: 'switches to Menu tab and shows no recommendations message',
-    // I will assume the original intent was to switch to the 'AI' tab, which is often called the 'Menu' in generic code.
-    // Let's correct it to 'AI' which is what likely contains the "recommendations" logic.
-
+    // Switch to AI tab
     const aiTab = screen.getByText('AI')
     fireEvent.click(aiTab)
 
-    expect(screen.getByText('Prompt Selector')).toBeInTheDocument() // Check for AI content presence
+    // Assert AI content is displayed (Prompt Selector is the initial view when no recommendations exist)
+    expect(screen.getByText('Prompt Selector')).toBeInTheDocument()
+
+    // Switch to POIs tab
+    const poisTab = screen.getByText('POIs')
+    fireEvent.click(poisTab)
+
+    // Assert POIs content is displayed (No recommended neighborhoods message when state is empty)
+    expect(screen.getByText('Recommended Neighborhoods')).toBeInTheDocument()
+    expect(screen.getByText('No recommended neighborhoods yet')).toBeInTheDocument()
+  })
+
+  // Test Case 4: Toggles a filter and verifies its state (Refactored for best practice)
+  it('toggles a filter checkbox correctly', () => {
+    render(<Home />)
+    
+    // Find the accessible input element associated with the label text
+    const densityCheckboxInput = screen.getByLabelText('Population Density')
+
+    // Initially unchecked (filters[0] is 0)
+    expect(densityCheckboxInput.checked).toBe(false)
+    
+    // Click the input element to toggle it (simulating user interaction with the control)
+    fireEvent.click(densityCheckboxInput)
+    
+    // Check if the state (checked status) has updated to true
+    expect(densityCheckboxInput.checked).toBe(true)
+    
+    // Click again to untoggle
+    fireEvent.click(densityCheckboxInput)
+    
+    // Check if the state has reverted to false
+    expect(densityCheckboxInput.checked).toBe(false)
   })
 })
